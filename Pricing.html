@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Michael Shobande, Web Developer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #FAFAF8;
+  --bg-alt: #F1F1EC;
+  --panel: #FFFFFF;
+  --ink: #14171C;
+  --ink-soft: #5B6169;
+  --ink-faint: #9498A0;
+  --line: #E1E1DB;
+  --accent: #2F6FED;
+  --accent-ink: #1449B8;
+  --accent-soft: #EAF0FE;
+  --good: #1F9D6C;
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --maxw: 1120px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a{ color: inherit; }
+.wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+a:focus-visible, button:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== NAV ===== */
+.nav{
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(250,250,248,0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner{
+  max-width: var(--maxw); margin: 0 auto; padding: 0 32px;
+  height: 56px; display:flex; align-items:center; gap: 28px;
+}
+.nav-brand{
+  display:flex; align-items:center; gap: 8px;
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  text-decoration:none; color: var(--ink); margin-right:auto;
+}
+.dot-row{ display:flex; gap:5px; }
+.dot-row span{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+.dot-row span:nth-child(1){ background:#E4574B; }
+.dot-row span:nth-child(2){ background:#E8B830; }
+.dot-row span:nth-child(3){ background:var(--good); }
+.nav-tabs{ display:flex; gap: 2px; }
+.nav-tabs a{
+  font-family: var(--mono); font-size: 13px; text-decoration:none;
+  color: var(--ink-soft); padding: 8px 12px; border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+.nav-tabs a:hover, .nav-tabs a:focus-visible{ color: var(--ink); }
+.nav-tabs a.active{ color: var(--ink); border-bottom-color: var(--accent); }
+.nav-cta{
+  font-family: var(--mono); font-size: 13px; text-decoration:none;
+  padding: 7px 14px; border-radius: 6px; background: var(--ink); color: var(--bg);
+  transition: background .15s ease;
+}
+.nav-cta:hover, .nav-cta:focus-visible{ background: var(--accent-ink); }
+@media (max-width: 720px){ .nav-tabs{ display:none; } }
+
+/* ===== scaffolding ===== */
+section{ position: relative; padding: 88px 0; border-bottom: 1px solid var(--line); }
+.section-path{
+  font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint);
+  letter-spacing: 0.02em; margin-bottom: 18px; display:flex; align-items:center; gap: 8px;
+}
+.section-path::before{ content:""; width:14px; height:1px; background: var(--line); }
+
+/* ===== HERO ===== */
+.hero{ padding: 76px 0 64px; }
+.hero-eyebrow{ font-family: var(--mono); font-size: 13px; color: var(--accent-ink); margin: 0 0 16px; }
+.hero h1{
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(32px, 4.6vw, 50px); line-height: 1.08; letter-spacing: -0.01em;
+  margin: 0 0 18px; max-width: 16ch;
+}
+.hero p{ color: var(--ink-soft); font-size: 17px; max-width: 56ch; margin: 0; }
+
+/* ===== PRICE LIST ===== */
+.list-head{ margin-bottom: 40px; }
+.list-head h2{
+  font-family: var(--display); font-size: clamp(24px,2.8vw,30px); margin: 0 0 10px; letter-spacing: -0.01em;
+}
+.list-head p{ color: var(--ink-soft); margin:0; max-width: 54ch; }
+
+.price-groups{ display:flex; flex-direction:column; gap: 40px; }
+.price-group-title{
+  font-family: var(--mono); font-size: 12px; color: var(--ink-faint);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--line);
+}
+.price-row{
+  display:flex; justify-content: space-between; align-items: baseline;
+  gap: 20px; padding: 13px 0; border-bottom: 1px dashed var(--line);
+}
+.price-row:last-child{ border-bottom: none; }
+.price-row-name{ font-size: 15.5px; }
+.price-row-name small{ display:block; font-size: 13px; color: var(--ink-faint); margin-top: 2px; }
+.price-row-value{
+  font-family: var(--mono); font-size: 14.5px; color: var(--ink); white-space: nowrap;
+  background: var(--bg-alt); border: 1px solid var(--line); padding: 3px 10px; border-radius: 6px;
+}
+
+.price-note{
+  margin-top: 36px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint);
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px;
+}
+
+/* ===== PACKAGES ===== */
+.pkg-head{ margin-bottom: 44px; }
+.pkg-head h2{ font-family: var(--display); font-size: clamp(24px,2.8vw,30px); margin: 0 0 10px; letter-spacing: -0.01em; }
+.pkg-head p{ color: var(--ink-soft); margin:0; max-width: 54ch; }
+
+.packages{
+  display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch;
+}
+.pkg{
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 30px 26px; display:flex; flex-direction:column;
+  position: relative;
+}
+.pkg.featured{ border-color: var(--accent); box-shadow: 0 20px 44px -24px rgba(47,111,237,0.35); }
+.pkg-badge{
+  position:absolute; top:-12px; left: 26px;
+  font-family: var(--mono); font-size: 11px; font-weight:600;
+  background: var(--accent); color:#fff; padding: 4px 10px; border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+.pkg-path{ font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); margin-bottom: 10px; }
+.pkg-name{ font-family: var(--display); font-size: 21px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.pkg-for{ color: var(--ink-soft); font-size: 14px; margin: 0 0 20px; }
+
+.pkg-price{ display:flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+.pkg-price .amount{ font-family: var(--display); font-size: 32px; font-weight: 700; }
+.pkg-price .from{ font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+.pkg-timeline{ font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 22px; }
+
+.pkg-features{ list-style:none; margin: 0 0 26px; padding:0; display:flex; flex-direction:column; gap: 11px; flex-grow: 1; }
+.pkg-features li{ font-size: 14px; color: var(--ink); display:flex; gap: 9px; align-items: flex-start; }
+.pkg-features li::before{
+  content: "✓"; color: var(--good); font-family: var(--mono); font-size: 12px;
+  flex-shrink:0; margin-top: 2px;
+}
+
+.pkg-cta{
+  font-family: var(--body); font-weight: 600; font-size: 14.5px;
+  text-align:center; text-decoration:none; padding: 12px 18px; border-radius: 8px;
+  background: var(--ink); color: var(--bg); transition: background .15s ease, transform .15s ease;
+}
+.pkg-cta:hover, .pkg-cta:focus-visible{ background: var(--accent-ink); transform: translateY(-1px); }
+.pkg.featured .pkg-cta{ background: var(--accent); }
+.pkg.featured .pkg-cta:hover, .pkg.featured .pkg-cta:focus-visible{ background: var(--accent-ink); }
+
+@media (max-width: 960px){
+  .packages{ grid-template-columns: 1fr; }
+}
+
+/* ===== FAQ / CTA ===== */
+.cta-band{
+  display:flex; align-items:center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.cta-band h2{ font-family: var(--display); font-size: clamp(22px,2.6vw,28px); margin:0 0 8px; letter-spacing: -0.01em; }
+.cta-band p{ color: var(--ink-soft); margin:0; max-width: 46ch; }
+.btn{
+  font-family: var(--body); font-weight: 600; font-size: 15px; padding: 13px 24px;
+  border-radius: 8px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  background: var(--ink); color: var(--bg); transition: background .15s ease, transform .15s ease; flex-shrink:0;
+}
+.btn:hover, .btn:focus-visible{ background: var(--accent-ink); transform: translateY(-1px); }
+
+footer{ padding: 40px 0 60px; }
+.footer-inner{ display:flex; align-items:center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.footer-brand{ font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
+.footer-links{ display:flex; gap: 20px; }
+.footer-links a{ font-family: var(--mono); font-size: 12.5px; color: var(--ink-soft); text-decoration:none; }
+.footer-links a:hover, .footer-links a:focus-visible{ color: var(--ink); }
+
+.reveal{ opacity:0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.in{ opacity:1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><span class="dot-row"><span></span><span></span><span></span></span>michael.dev</a>
+    <div class="nav-tabs">
+      <a href="index.html#about">about.tsx</a>
+      <a href="index.html#work">work.tsx</a>
+      <a href="pricing.html" class="active">pricing.tsx</a>
+      <a href="index.html#contact">contact.tsx</a>
+    </div>
+    <a href="index.html#contact" class="nav-cta">Get a quote →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">~/pricing % cat rates.md</p>
+    <h1>Straightforward pricing, no surprise invoices.</h1>
+    <p>Every project starts with a free 20-minute scoping call. You'll get a fixed price before any work begins — not an hourly meter running in the background. Below is what individual work costs, and three ready-made packages for the most common jobs.</p>
+  </div>
+</header>
+
+<section id="price-list">
+  <div class="wrap">
+    <p class="section-path">~/pricing/rate-card</p>
+    <div class="list-head reveal">
+      <h2>Price list</h2>
+      <p>Useful if you already know what you need, or want to add something on top of a package.</p>
+    </div>
+
+    <div class="price-groups reveal">
+      <div class="price-group">
+        <p class="price-group-title">Design &amp; build</p>
+        <div class="price-row">
+          <div class="price-row-name">Extra page (designed &amp; built)<small>Beyond what's included in a package</small></div>
+          <div class="price-row-value">£120 / page</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Logo &amp; brand refresh<small>Colour palette, type, simple logo mark</small></div>
+          <div class="price-row-value">£180 – £350</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Copywriting<small>Website text written for you, per page</small></div>
+          <div class="price-row-value">£60 / page</div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <p class="price-group-title">Functionality</p>
+        <div class="price-row">
+          <div class="price-row-name">Contact / enquiry form</div>
+          <div class="price-row-value">£60</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Online booking system<small>Service menu, availability, confirmations</small></div>
+          <div class="price-row-value">£300 – £600</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Online shop<small>Up to 20 products, card payments</small></div>
+          <div class="price-row-value">£700 – £1,200</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Members / fixtures database<small>Squads, results, standings — club sites</small></div>
+          <div class="price-row-value">£350 – £800</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Admin / staff login portal<small>Manage content without touching code</small></div>
+          <div class="price-row-value">£500 – £1,500</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Payment integration<small>Stripe / PayPal checkout</small></div>
+          <div class="price-row-value">£150 – £300</div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <p class="price-group-title">Visibility &amp; content</p>
+        <div class="price-row">
+          <div class="price-row-name">Basic on-page SEO setup<small>Titles, meta tags, sitemap, alt text</small></div>
+          <div class="price-row-value">£150</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Blog / news section</div>
+          <div class="price-row-value">£200</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Google Business Profile setup</div>
+          <div class="price-row-value">£50</div>
+        </div>
+      </div>
+
+      <div class="price-group">
+        <p class="price-group-title">Ongoing &amp; support</p>
+        <div class="price-row">
+          <div class="price-row-name">Monthly maintenance<small>Updates, backups, small content changes</small></div>
+          <div class="price-row-value">from £40 / mo</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Hosting &amp; domain setup<small>One-off, provider costs billed separately</small></div>
+          <div class="price-row-value">£75</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Extra revision round<small>Beyond what's included in a package</small></div>
+          <div class="price-row-value">£50</div>
+        </div>
+        <div class="price-row">
+          <div class="price-row-name">Rush delivery<small>Compressed timeline</small></div>
+          <div class="price-row-value">+25% of fee</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="price-note reveal">// Prices are typical ranges for small businesses and clubs. Final quote depends on scope — always confirmed in writing before work starts.</p>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="wrap">
+    <p class="section-path">~/pricing/packages</p>
+    <div class="pkg-head reveal">
+      <h2>Packages</h2>
+      <p>Three common starting points. Every package can flex — think of these as the shape of the project, not a rigid menu.</p>
+    </div>
+
+    <div class="packages reveal">
+
+      <div class="pkg">
+        <p class="pkg-path">/packages/facelift</p>
+        <h3 class="pkg-name">Frontend Facelift</h3>
+        <p class="pkg-for">For a site that already exists but looks dated or isn't converting visitors.</p>
+        <div class="pkg-price"><span class="amount">£600</span><span class="from">from</span></div>
+        <p class="pkg-timeline">1 – 2 weeks · fixed price</p>
+        <ul class="pkg-features">
+          <li>Full visual redesign using your existing content</li>
+          <li>Mobile-first responsive rebuild</li>
+          <li>Up to 5 pages restyled</li>
+          <li>On-brand colour, type &amp; imagery refresh</li>
+          <li>Page speed &amp; performance clean-up</li>
+          <li>2 rounds of revisions</li>
+          <li>Launch support</li>
+        </ul>
+        <a href="index.html#contact" class="pkg-cta">Start with a facelift</a>
+      </div>
+
+      <div class="pkg featured">
+        <span class="pkg-badge">MOST COMMON</span>
+        <p class="pkg-path">/packages/full-site</p>
+        <h3 class="pkg-name">Full Site Build</h3>
+        <p class="pkg-for">For a brand new site with one or two features that actually do something.</p>
+        <div class="pkg-price"><span class="amount">£1,500</span><span class="from">from</span></div>
+        <p class="pkg-timeline">3 – 4 weeks · fixed price</p>
+        <ul class="pkg-features">
+          <li>Custom design, up to 8 pages</li>
+          <li>Fully responsive, mobile-first build</li>
+          <li>1 core feature included (booking form, enquiry flow, or listings page)</li>
+          <li>Contact form &amp; social links</li>
+          <li>Basic on-page SEO</li>
+          <li>Analytics set up from day one</li>
+          <li>2 rounds of revisions</li>
+          <li>Handover &amp; training session</li>
+        </ul>
+        <a href="index.html#contact" class="pkg-cta">Start a full build</a>
+      </div>
+
+      <div class="pkg">
+        <p class="pkg-path">/packages/full-stack</p>
+        <h3 class="pkg-name">Full-Stack + Admin Portal</h3>
+        <p class="pkg-for">For clubs and businesses that need a real system running behind the site.</p>
+        <div class="pkg-price"><span class="amount">£3,200</span><span class="from">from</span></div>
+        <p class="pkg-timeline">6 – 8 weeks · fixed price</p>
+        <ul class="pkg-features">
+          <li>Everything in Full Site Build</li>
+          <li>Custom backend &amp; database (fixtures, bookings, members, stock)</li>
+          <li>Secure admin / staff portal — manage content without a developer</li>
+          <li>Up to 12 pages or views</li>
+          <li>User accounts / logins where needed</li>
+          <li>30 days of post-launch support</li>
+          <li>Staff training session</li>
+        </ul>
+        <a href="index.html#contact" class="pkg-cta">Scope a full-stack build</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap cta-band reveal">
+    <div>
+      <h2>Not sure which one fits?</h2>
+      <p>Send over what you're trying to build — I'll tell you honestly which package (or mix of the two) makes sense, no upsell.</p>
+    </div>
+    <a href="index.html#contact" class="btn">Get a free quote →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p class="footer-brand">© 2026 Michael Shobande — built from scratch, end to end.</p>
+    <div class="footer-links">
+      <a href="mailto:hello@michaelshobande.dev">Email</a>
+      <a href="https://github.com/michvl1" target="_blank" rel="noopener">GitHub</a>
+      <a href="index.html">← Back to portfolio</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

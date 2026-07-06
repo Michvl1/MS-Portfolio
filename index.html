@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Shobande — Full-Stack Web Developer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg: #FAFAF8;
+  --bg-alt: #F1F1EC;
+  --panel: #FFFFFF;
+  --ink: #14171C;
+  --ink-soft: #5B6169;
+  --ink-faint: #9498A0;
+  --line: #E1E1DB;
+  --accent: #2F6FED;
+  --accent-ink: #1449B8;
+  --good: #1F9D6C;
+  --radius: 10px;
+  --maxw: 1120px;
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; }
+img{ max-width:100%; display:block; }
+
+.wrap{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ============ NAV — editor tab bar ============ */
+.nav{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250,250,248,0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 56px;
+  display:flex;
+  align-items:center;
+  gap: 28px;
+}
+.nav-brand{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration:none;
+  margin-right: auto;
+}
+.dot-row{ display:flex; gap:5px; }
+.dot-row span{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+.dot-row span:nth-child(1){ background:#E4574B; }
+.dot-row span:nth-child(2){ background:#E8B830; }
+.dot-row span:nth-child(3){ background:var(--good); }
+
+.nav-tabs{ display:flex; gap: 2px; }
+.nav-tabs a{
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration:none;
+  color: var(--ink-soft);
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+.nav-tabs a:hover, .nav-tabs a:focus-visible{ color: var(--ink); }
+.nav-tabs a.active{ color: var(--ink); border-bottom-color: var(--accent); }
+
+.nav-cta{
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration:none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--bg);
+  transition: background .15s ease;
+}
+.nav-cta:hover, .nav-cta:focus-visible{ background: var(--accent-ink); }
+
+@media (max-width: 720px){
+  .nav-tabs{ display:none; }
+}
+
+/* ============ Focus states ============ */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============ Section scaffolding w/ gutter ============ */
+section{
+  position: relative;
+  padding: 96px 0;
+  border-bottom: 1px solid var(--line);
+}
+.section-path{
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  margin-bottom: 18px;
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.section-path::before{
+  content: "";
+  width: 14px; height: 1px;
+  background: var(--line);
+}
+
+/* ============ HERO ============ */
+.hero{
+  padding: 84px 0 96px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items:start;
+}
+.hero-eyebrow{
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent-ink);
+  margin: 0 0 18px;
+}
+h1.hero-name{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(36px, 5.4vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid var(--accent);
+  width: 16ch;
+  animation: typing 1.6s steps(16, end) 0.2s both, blink 0.85s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  h1.hero-name{ width: auto; border-right: none; animation: none; }
+}
+@keyframes typing{ from{ width:0; } to{ width: 16ch; } }
+@keyframes blink{ 50%{ border-color: transparent; } }
+
+.hero-role{
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(19px, 2.4vw, 24px);
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+}
+.hero-desc{
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 32px;
+}
+.hero-actions{
+  display:flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.btn{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 24px;
+  border-radius: 8px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  border: 1px solid transparent;
+  cursor:pointer;
+}
+.btn-primary{ background: var(--ink); color: var(--bg); }
+.btn-primary:hover, .btn-primary:focus-visible{ background: var(--accent-ink); transform: translateY(-1px); }
+.btn-secondary{ background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-secondary:hover, .btn-secondary:focus-visible{ border-color: var(--ink); transform: translateY(-1px); }
+
+/* terminal card */
+.term-card{
+  background: #14171C;
+  border-radius: 12px;
+  overflow:hidden;
+  box-shadow: 0 20px 50px -20px rgba(20,23,28,0.35);
+}
+.term-head{
+  display:flex; gap:6px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.term-head span{ width:10px; height:10px; border-radius:50%; }
+.term-head span:nth-child(1){ background:#E4574B; }
+.term-head span:nth-child(2){ background:#E8B830; }
+.term-head span:nth-child(3){ background:var(--good); }
+.term-body{
+  font-family: var(--mono);
+  font-size: 13.5px;
+  color: #C9D1D9;
+  padding: 20px 18px 24px;
+  line-height: 1.9;
+}
+.term-body .muted{ color: #6E7681; }
+.term-body .ok{ color: var(--good); }
+.term-body .accent{ color: #7AA2FF; }
+
+@media (max-width: 860px){
+  .hero-grid{ grid-template-columns: 1fr; }
+}
+
+/* ============ ABOUT ============ */
+.about-grid{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 64px;
+}
+.about-text p{
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+.about-text h2{
+  font-family: var(--display);
+  font-size: clamp(26px,3vw,34px);
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+.stats{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow:hidden;
+  margin-top: 32px;
+}
+.stat{
+  background: var(--panel);
+  padding: 20px 18px;
+}
+.stat-num{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--ink);
+}
+.stat-label{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+
+.skill-panel{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+.skill-panel-title{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+.pills{ display:flex; flex-wrap:wrap; gap: 8px; }
+.pill{
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  padding: 6px 11px;
+  border-radius: 6px;
+}
+
+@media (max-width: 860px){
+  .about-grid{ grid-template-columns: 1fr; }
+  .stats{ grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 520px){
+  .stats{ grid-template-columns: 1fr; }
+}
+
+/* ============ WORK ============ */
+.work-head{
+  display:flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 44px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.work-head h2{
+  font-family: var(--display);
+  font-size: clamp(26px,3vw,34px);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.work-head p{
+  color: var(--ink-soft);
+  margin: 8px 0 0;
+  max-width: 42ch;
+}
+
+.projects{
+  display:flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.project-card{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow:hidden;
+  background: var(--panel);
+}
+.project-card:nth-child(even){ direction: rtl; }
+.project-card:nth-child(even) > *{ direction: ltr; }
+
+.project-visual{
+  position: relative;
+  min-height: 280px;
+  padding: 28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.mock-browser{
+  width:100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow:hidden;
+  box-shadow: 0 16px 36px -18px rgba(20,23,28,0.28);
+}
+.mock-bar{
+  display:flex; align-items:center; gap:6px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+}
+.mock-bar span{ width:8px; height:8px; border-radius:50%; background: var(--line); }
+.mock-url{
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-left: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+.mock-content{ padding: 22px; }
+.mock-line{ height: 10px; border-radius: 4px; background: var(--bg-alt); margin-bottom: 10px; }
+.mock-block{ height: 64px; border-radius: 8px; margin-top: 14px; }
+
+.kshor-visual .mock-content .mock-line:nth-child(1){ width: 55%; height: 16px; background: #FBE4D8; }
+.kshor-visual .mock-block{ background: linear-gradient(135deg,#FBE4D8,#F3C6B4); }
+.invicta-visual .mock-content .mock-line:nth-child(1){ width: 60%; height: 16px; background: #DCE7FB; }
+.invicta-visual .mock-block{ background: linear-gradient(135deg,#DCE7FB,#B7CDF7); }
+
+.project-info{
+  padding: 40px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.project-path{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+}
+.status-line{
+  display:flex; align-items:center; gap:7px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--good);
+  margin-bottom: 14px;
+}
+.status-line::before{ content:""; width:6px; height:6px; border-radius:50%; background: var(--good); }
+
+.project-info h3{
+  font-family: var(--display);
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+.project-info p{
+  color: var(--ink-soft);
+  font-size: 15.5px;
+  margin: 0 0 20px;
+}
+.project-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom: 24px; }
+.project-tags .pill{ font-size: 11.5px; padding: 5px 9px; }
+.project-links{ display:flex; gap: 18px; }
+.project-links a{
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration:none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+  transition: color .15s ease, border-color .15s ease;
+}
+.project-links a:hover, .project-links a:focus-visible{ color: var(--accent-ink); border-color: var(--accent-ink); }
+
+@media (max-width: 860px){
+  .project-card, .project-card:nth-child(even){ direction: ltr; grid-template-columns: 1fr; }
+  .project-info{ padding: 28px; }
+}
+
+/* ============ CONTACT ============ */
+.contact-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.contact-text h2{
+  font-family: var(--display);
+  font-size: clamp(28px,3.4vw,38px);
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+.contact-text p{
+  color: var(--ink-soft);
+  font-size: 16.5px;
+  max-width: 40ch;
+  margin: 0 0 24px;
+}
+.contact-direct{
+  font-family: var(--mono);
+  font-size: 14.5px;
+}
+.contact-direct a{
+  color: var(--accent-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+.contact-direct a:hover, .contact-direct a:focus-visible{ color: var(--ink); }
+
+form{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  display:flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.field label{
+  display:block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.field input, .field textarea{
+  width:100%;
+  font-family: var(--body);
+  font-size: 14.5px;
+  padding: 11px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+.field textarea{ resize: vertical; min-height: 96px; }
+.field input::placeholder, .field textarea::placeholder{ color: var(--ink-faint); }
+.form-note{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+@media (max-width: 860px){
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+/* ============ FOOTER ============ */
+footer{ padding: 40px 0 60px; }
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-brand{
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+}
+.footer-links{ display:flex; gap: 20px; }
+.footer-links a{
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-decoration:none;
+}
+.footer-links a:hover, .footer-links a:focus-visible{ color: var(--ink); }
+
+/* reveal on scroll */
+.reveal{ opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.in{ opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand"><span class="dot-row"><span></span><span></span><span></span></span>michael.dev</a>
+    <div class="nav-tabs">
+      <a href="#about" class="tab-link">about.tsx</a>
+      <a href="#work" class="tab-link">work.tsx</a>
+      <a href="pricing.html" class="tab-link">Pricing.tsx</a>
+      <a href="#contact" class="tab-link">contact.tsx</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get a quote →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-eyebrow">~ % whoami</p>
+      <h1 class="hero-name">Michael Shobande</h1>
+      <p class="hero-role">Full-stack web developer</p>
+      <p class="hero-desc">I design and build complete web apps — booking flows, club sites, dashboards — for small businesses that need something fast, reliable, and easy to run.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">View my work</a>
+        <a href="#contact" class="btn btn-secondary">Start a project</a>
+      </div>
+    </div>
+    <div class="term-card">
+      <div class="term-head"><span></span><span></span><span></span></div>
+      <div class="term-body">
+        <div><span class="muted">$</span> npm run build</div>
+        <div><span class="ok">✓</span> frontend compiled</div>
+        <div><span class="ok">✓</span> backend connected</div>
+        <div><span class="ok">✓</span> booking flow tested</div>
+        <div><span class="muted">$</span> git log --oneline -3</div>
+        <div><span class="accent">a1c9e0</span> <span class="muted">ship: contact form validation</span></div>
+        <div><span class="accent">7f2b81</span> <span class="muted">feat: fixtures &amp; results page</span></div>
+        <div><span class="accent">4e0d3a</span> <span class="muted">feat: online booking flow</span></div>
+        <div><span class="muted">$</span> status: <span class="ok">available for new projects</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <p class="section-path">~/about</p>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <h2>Full-stack, end to end.</h2>
+        <p>I've spent 5+ years building complete web products — not just the pages people see, but the systems behind them: bookings, data, and the small details that make a site easy for a real business to run day to day.</p>
+        <p>I work directly with owners and small teams, so you get one person who understands the whole build, from the first sketch to the live site.</p>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">YEARS BUILDING</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">Full</div>
+            <div class="stat-label">STACK, START TO FINISH</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">1:1</div>
+            <div class="stat-label">DIRECT WITH CLIENTS</div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-panel">
+        <p class="skill-panel-title">// tech I build with</p>
+        <div class="pills">
+          <span class="pill">HTML/CSS/JS</span>
+          <span class="pill">React</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Express</span>
+          <span class="pill">SQL/Postgres</span>
+          <span class="pill">REST APIs</span>
+          <span class="pill">Git</span>
+          <span class="pill">Responsive Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <p class="section-path">~/work</p>
+    <div class="work-head reveal">
+      <h2>Selected projects</h2>
+      <p>Real sites, built end to end for real businesses.</p>
+    </div>
+
+    <div class="projects">
+      <div class="project-card reveal">
+        <div class="project-visual kshor-visual">
+          <div class="mock-browser">
+            <div class="mock-bar"><span></span><span></span><span></span><span class="mock-url">kshohair.co.uk</span></div>
+            <div class="mock-content">
+              <div class="mock-line" style="width:55%"></div>
+              <div class="mock-line" style="width:80%"></div>
+              <div class="mock-line" style="width:65%"></div>
+              <div class="mock-block"></div>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-path">/work/kshohair.co.uk</p>
+          <div class="status-line">LIVE IN PRODUCTION</div>
+          <h3>K.SHO Hair</h3>
+          <p>A booking-first website for an independent hair stylist — service menu, online booking flow, and client reviews, built mobile-first for clients booking on the go.</p>
+          <div class="project-tags">
+            <span class="pill">Frontend build</span>
+            <span class="pill">Online booking</span>
+            <span class="pill">Mobile-first</span>
+          </div>
+          <div class="project-links">
+            <a href="https://kshohair.co.uk/" target="_blank" rel="noopener">Visit site ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-visual invicta-visual">
+          <div class="mock-browser">
+            <div class="mock-bar"><span></span><span></span><span></span><span class="mock-url">medway-invictafc</span></div>
+            <div class="mock-content">
+              <div class="mock-line" style="width:60%"></div>
+              <div class="mock-line" style="width:75%"></div>
+              <div class="mock-line" style="width:50%"></div>
+              <div class="mock-block"></div>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-path">/work/medway-invicta-fc</p>
+          <div class="status-line">LIVE IN PRODUCTION</div>
+          <h3>Medway Invicta FC</h3>
+          <p>A club website for a grassroots football team — fixtures, results, squad info, and news, giving the club a proper home online without needing anyone to manage a CMS.</p>
+          <div class="project-tags">
+            <span class="pill">Full build</span>
+            <span class="pill">Fixtures &amp; results</span>
+            <span class="pill">Static + JS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://michvl1.github.io/Medway-InvictaFC/" target="_blank" rel="noopener">Visit site ↗</a>
+            <a href="https://github.com/michvl1/Medway-InvictaFC" target="_blank" rel="noopener">View code ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="section-path">~/contact</p>
+    <div class="contact-grid reveal">
+      <div class="contact-text">
+        <h2>Let's build something.</h2>
+        <p>Tell me a bit about your project — what you need, and roughly when. I reply to every enquiry within a couple of days.</p>
+        <p class="contact-direct">Or email directly: <a href="mailto:hello@michaelshobande.dev">hello@michaelshobande.dev</a></p>
+      </div>
+      <form onsubmit="event.preventDefault(); this.querySelector('.form-note').textContent='Thanks — hook this form up to an email service (e.g. Formspree) to receive messages.';">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="details">Project details</label>
+          <textarea id="details" placeholder="What are you looking to build?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
+        <p class="form-note">This form needs a backend or a service like Formspree to actually send email.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p class="footer-brand">© 2026 Michael Shobande — built from scratch, end to end.</p>
+    <div class="footer-links">
+      <a href="mailto:hello@michaelshobande.dev">Email</a>
+      <a href="https://github.com/michvl1" target="_blank" rel="noopener">GitHub</a>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// active tab highlighting
+const tabs = document.querySelectorAll('.tab-link');
+const sections = ['about','work','contact'].map(id => document.getElementById(id));
+function setActive(){
+  let current = '';
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if(rect.top <= 120 && rect.bottom > 120){ current = sec.id; }
+  });
+  tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#' + current));
+}
+document.addEventListener('scroll', setActive, { passive:true });
+setActive();
+
+// reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
