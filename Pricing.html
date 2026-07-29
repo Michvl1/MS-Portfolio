@@ -536,9 +536,159 @@ footer{ padding: 40px 0 60px; }
   <div class="wrap">
     <p class="hero-eyebrow">~/pricing % cat rates.md</p>
     <h1>Straightforward pricing, no surprise invoices.</h1>
-    <p>Every project starts with a free 20-minute scoping call. You'll get a fixed price before any work begins — not an hourly meter running in the background. Below is what individual work costs, and three ready-made packages for the most common jobs.</p>
+    <p>Every project starts with a free 20-minute scoping call. You'll get a fixed price before any work begins — not an hourly meter running in the background. Start with the quote builder below, or scroll on for the full price list and packages.</p>
   </div>
 </header>
+
+<!-- ===== QUOTE BUILDER ===== -->
+<section id="quote-builder">
+  <div class="wrap">
+    <p class="section-path">~/pricing/quote-builder</p>
+    <div class="qb-head reveal">
+      <h2>Build your quote in 60 seconds.</h2>
+      <p>Answer six quick questions and I'll point you at the right package with a ballpark price — no email required to see the number. Prefer to browse first? The full price list and packages are just below.</p>
+    </div>
+
+    <div class="qb-card reveal">
+      <div class="qb-bar">
+        <span class="dot-row"><span></span><span></span><span></span></span>
+        <span class="qb-bar-title">~/pricing % ./quote-builder</span>
+        <span class="qb-progress" id="qbProgress">question 1/5</span>
+      </div>
+      <div class="qb-track"><div class="qb-track-fill" id="qbTrackFill"></div></div>
+
+      <div class="qb-body">
+
+        <!-- Q1: business type -->
+        <div class="qb-step" data-step="0">
+          <p class="qb-q">What kind of business is this for?</p>
+          <p class="qb-hint">// helps me point you at the right examples</p>
+          <div class="qb-opts" data-mode="single" data-key="business">
+            <button type="button" class="qb-opt single" data-value="beauty"><span class="tick">●</span><span>Barber / hair &amp; beauty<small>Appointments, services, a strong look</small></span></button>
+            <button type="button" class="qb-opt single" data-value="club"><span class="tick">●</span><span>Sports club<small>Fixtures, squads, results, news</small></span></button>
+            <button type="button" class="qb-opt single" data-value="local"><span class="tick">●</span><span>Local business<small>Trades, food, retail, services</small></span></button>
+            <button type="button" class="qb-opt single" data-value="other"><span class="tick">●</span><span>Startup / something else</span></button>
+          </div>
+        </div>
+
+        <!-- Q2: project type -->
+        <div class="qb-step" data-step="1" hidden>
+          <p class="qb-q">What's the starting point?</p>
+          <p class="qb-hint">// pick one</p>
+          <div class="qb-opts" data-mode="single" data-key="type">
+            <button type="button" class="qb-opt single" data-value="new"><span class="tick">●</span><span>A brand new website<small>Nothing exists yet, or I'm starting over</small></span></button>
+            <button type="button" class="qb-opt single" data-value="redesign"><span class="tick">●</span><span>Redesign my current site<small>It exists but looks dated or underperforms</small></span></button>
+            <button type="button" class="qb-opt single" data-value="addon"><span class="tick">●</span><span>Add features to my current site<small>The site is fine, it just needs to do more</small></span></button>
+          </div>
+        </div>
+
+        <!-- Q2: features -->
+        <div class="qb-step" data-step="2" hidden>
+          <p class="qb-q">What does it need to do?</p>
+          <p class="qb-hint">// pick everything that applies</p>
+          <div class="qb-opts" data-mode="multi" data-key="features">
+            <button type="button" class="qb-opt" data-value="booking"><span class="tick">✓</span><span>Online booking<small>Services, availability, confirmations</small></span></button>
+            <button type="button" class="qb-opt" data-value="payments"><span class="tick">✓</span><span>Take payments<small>Stripe / PayPal, deposits or checkout</small></span></button>
+            <button type="button" class="qb-opt" data-value="shop"><span class="tick">✓</span><span>Online shop<small>Sell products with card payments</small></span></button>
+            <button type="button" class="qb-opt" data-value="members"><span class="tick">✓</span><span>Members / fixtures database<small>Squads, results, standings</small></span></button>
+            <button type="button" class="qb-opt" data-value="portal"><span class="tick">✓</span><span>Edit content myself<small>A secure admin portal, no developer needed</small></span></button>
+            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>None of these<small>Info, photos and a contact form is plenty</small></span></button>
+          </div>
+        </div>
+
+        <!-- Q3: pages -->
+        <div class="qb-step" data-step="3" hidden>
+          <p class="qb-q">Roughly how many pages?</p>
+          <p class="qb-hint">// a guess is fine — home, about, services etc. each count as one</p>
+          <div class="qb-opts" data-mode="single" data-key="pages">
+            <button type="button" class="qb-opt single" data-value="p5"><span class="tick">●</span><span>1 – 5 pages</span></button>
+            <button type="button" class="qb-opt single" data-value="p8"><span class="tick">●</span><span>6 – 8 pages</span></button>
+            <button type="button" class="qb-opt single" data-value="p12"><span class="tick">●</span><span>9 – 12+ pages</span></button>
+            <button type="button" class="qb-opt single" data-value="unsure"><span class="tick">●</span><span>Not sure yet</span></button>
+          </div>
+        </div>
+
+        <!-- Q4: extras -->
+        <div class="qb-step" data-step="4" hidden>
+          <p class="qb-q">Any extras on top?</p>
+          <p class="qb-hint">// pick everything that applies</p>
+          <div class="qb-opts" data-mode="multi" data-key="extras">
+            <button type="button" class="qb-opt" data-value="logo"><span class="tick">✓</span><span>Logo &amp; brand refresh<small>Colours, type, simple logo mark</small></span></button>
+            <button type="button" class="qb-opt" data-value="copy"><span class="tick">✓</span><span>Copywriting<small>I'd rather you write the website text</small></span></button>
+            <button type="button" class="qb-opt" data-value="blog"><span class="tick">✓</span><span>Blog / news section</span></button>
+            <button type="button" class="qb-opt" data-value="gbp"><span class="tick">✓</span><span>Google Business Profile setup</span></button>
+            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>No extras needed</span></button>
+          </div>
+        </div>
+
+        <!-- Q5: timeline -->
+        <div class="qb-step" data-step="5" hidden>
+          <p class="qb-q">How soon do you need it?</p>
+          <p class="qb-hint">// rushed timelines are possible, they just cost a little more</p>
+          <div class="qb-opts" data-mode="single" data-key="timeline">
+            <button type="button" class="qb-opt single" data-value="flexible"><span class="tick">●</span><span>I'm flexible<small>Standard timeline is fine</small></span></button>
+            <button type="button" class="qb-opt single" data-value="rush"><span class="tick">●</span><span>As soon as possible<small>Compressed timeline, +25%</small></span></button>
+          </div>
+        </div>
+
+        <!-- RESULT -->
+        <div class="qb-step" data-step="result" hidden>
+          <span class="qb-result-badge" id="qbBadge">RECOMMENDED FOR YOU</span>
+          <p class="qb-result-pkg" id="qbPkgName"></p>
+          <p class="qb-result-why" id="qbPkgWhy"></p>
+
+          <div class="qb-estimate">
+            <span class="qb-est-label">Ballpark estimate</span>
+            <span class="qb-est-value" id="qbEstimate"></span>
+          </div>
+
+          <div class="qb-breakdown" id="qbBreakdown"></div>
+
+          <p class="qb-result-fine">// This is a ballpark, not a bill. The fixed price is confirmed in writing after a free 20-minute call — and it can go <strong>down</strong> as well as up once we trim the scope to what you actually need. Summer deal prices valid on projects booked by 30 Sept 2026.</p>
+
+          <div class="qb-send">
+            <p class="qb-send-title">// send your answers over and I'll come back with a proper quote</p>
+            <label class="qb-check">
+              <input type="checkbox" id="qbMaintenance">
+              <span>I'm also interested in monthly maintenance <small>(updates, backups &amp; small changes — from £40/mo)</small></span>
+            </label>
+            <p class="qb-error" id="qbSendError" hidden></p>
+            <div class="qb-fields">
+              <div class="qb-field">
+                <label for="qbName">Name</label>
+                <input id="qbName" type="text" autocomplete="name" placeholder="Your name">
+              </div>
+              <div class="qb-field">
+                <label for="qbEmail">Email</label>
+                <input id="qbEmail" type="email" autocomplete="email" placeholder="you@example.com">
+              </div>
+              <div class="qb-field full">
+                <label for="qbBusiness">Business / social handle <span style="color:var(--ink-faint)">(optional)</span></label>
+                <input id="qbBusiness" type="text" placeholder="@yourbusiness">
+              </div>
+            </div>
+            <div class="qb-actions">
+              <button type="button" class="btn" id="qbSendBtn">Send my answers →</button>
+              <button type="button" class="btn btn-outline" id="qbWhatsAppBtn" hidden>Send on WhatsApp</button>
+              <button type="button" class="btn btn-outline" id="qbCopyBtn">Copy summary</button>
+              <span class="qb-copy-ok" id="qbCopyOk" hidden>copied ✓</span>
+              <button type="button" class="qb-restart" id="qbEdit">edit answers</button>
+              <button type="button" class="qb-restart" id="qbRestart">start over</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- nav -->
+        <div class="qb-nav" id="qbNav">
+          <button type="button" class="qb-btn qb-btn-back" id="qbBack" hidden>← Back</button>
+          <button type="button" class="qb-btn qb-btn-next" id="qbNext" disabled>Next →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="summer-deal" class="summer">
   <div class="wrap">
@@ -743,155 +893,6 @@ footer{ padding: 40px 0 60px; }
         <a href="index.html#contact" class="pkg-cta">Scope a full-stack build</a>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ===== QUOTE BUILDER ===== -->
-<section id="quote-builder">
-  <div class="wrap">
-    <p class="section-path">~/pricing/quote-builder</p>
-    <div class="qb-head reveal">
-      <h2>Not sure which one fits? Build your quote.</h2>
-      <p>Answer five quick questions and I'll point you at the right package with a ballpark price — no email required to see the number.</p>
-    </div>
-
-    <div class="qb-card reveal">
-      <div class="qb-bar">
-        <span class="dot-row"><span></span><span></span><span></span></span>
-        <span class="qb-bar-title">~/pricing % ./quote-builder</span>
-        <span class="qb-progress" id="qbProgress">question 1/5</span>
-      </div>
-      <div class="qb-track"><div class="qb-track-fill" id="qbTrackFill"></div></div>
-
-      <div class="qb-body">
-
-        <!-- Q1: business type -->
-        <div class="qb-step" data-step="0">
-          <p class="qb-q">What kind of business is this for?</p>
-          <p class="qb-hint">// helps me point you at the right examples</p>
-          <div class="qb-opts" data-mode="single" data-key="business">
-            <button type="button" class="qb-opt single" data-value="beauty"><span class="tick">●</span><span>Barber / hair &amp; beauty<small>Appointments, services, a strong look</small></span></button>
-            <button type="button" class="qb-opt single" data-value="club"><span class="tick">●</span><span>Sports club<small>Fixtures, squads, results, news</small></span></button>
-            <button type="button" class="qb-opt single" data-value="local"><span class="tick">●</span><span>Local business<small>Trades, food, retail, services</small></span></button>
-            <button type="button" class="qb-opt single" data-value="other"><span class="tick">●</span><span>Startup / something else</span></button>
-          </div>
-        </div>
-
-        <!-- Q2: project type -->
-        <div class="qb-step" data-step="1" hidden>
-          <p class="qb-q">What's the starting point?</p>
-          <p class="qb-hint">// pick one</p>
-          <div class="qb-opts" data-mode="single" data-key="type">
-            <button type="button" class="qb-opt single" data-value="new"><span class="tick">●</span><span>A brand new website<small>Nothing exists yet, or I'm starting over</small></span></button>
-            <button type="button" class="qb-opt single" data-value="redesign"><span class="tick">●</span><span>Redesign my current site<small>It exists but looks dated or underperforms</small></span></button>
-            <button type="button" class="qb-opt single" data-value="addon"><span class="tick">●</span><span>Add features to my current site<small>The site is fine, it just needs to do more</small></span></button>
-          </div>
-        </div>
-
-        <!-- Q2: features -->
-        <div class="qb-step" data-step="2" hidden>
-          <p class="qb-q">What does it need to do?</p>
-          <p class="qb-hint">// pick everything that applies</p>
-          <div class="qb-opts" data-mode="multi" data-key="features">
-            <button type="button" class="qb-opt" data-value="booking"><span class="tick">✓</span><span>Online booking<small>Services, availability, confirmations</small></span></button>
-            <button type="button" class="qb-opt" data-value="payments"><span class="tick">✓</span><span>Take payments<small>Stripe / PayPal, deposits or checkout</small></span></button>
-            <button type="button" class="qb-opt" data-value="shop"><span class="tick">✓</span><span>Online shop<small>Sell products with card payments</small></span></button>
-            <button type="button" class="qb-opt" data-value="members"><span class="tick">✓</span><span>Members / fixtures database<small>Squads, results, standings</small></span></button>
-            <button type="button" class="qb-opt" data-value="portal"><span class="tick">✓</span><span>Edit content myself<small>A secure admin portal, no developer needed</small></span></button>
-            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>None of these<small>Info, photos and a contact form is plenty</small></span></button>
-          </div>
-        </div>
-
-        <!-- Q3: pages -->
-        <div class="qb-step" data-step="3" hidden>
-          <p class="qb-q">Roughly how many pages?</p>
-          <p class="qb-hint">// a guess is fine — home, about, services etc. each count as one</p>
-          <div class="qb-opts" data-mode="single" data-key="pages">
-            <button type="button" class="qb-opt single" data-value="p5"><span class="tick">●</span><span>1 – 5 pages</span></button>
-            <button type="button" class="qb-opt single" data-value="p8"><span class="tick">●</span><span>6 – 8 pages</span></button>
-            <button type="button" class="qb-opt single" data-value="p12"><span class="tick">●</span><span>9 – 12+ pages</span></button>
-            <button type="button" class="qb-opt single" data-value="unsure"><span class="tick">●</span><span>Not sure yet</span></button>
-          </div>
-        </div>
-
-        <!-- Q4: extras -->
-        <div class="qb-step" data-step="4" hidden>
-          <p class="qb-q">Any extras on top?</p>
-          <p class="qb-hint">// pick everything that applies</p>
-          <div class="qb-opts" data-mode="multi" data-key="extras">
-            <button type="button" class="qb-opt" data-value="logo"><span class="tick">✓</span><span>Logo &amp; brand refresh<small>Colours, type, simple logo mark</small></span></button>
-            <button type="button" class="qb-opt" data-value="copy"><span class="tick">✓</span><span>Copywriting<small>I'd rather you write the website text</small></span></button>
-            <button type="button" class="qb-opt" data-value="blog"><span class="tick">✓</span><span>Blog / news section</span></button>
-            <button type="button" class="qb-opt" data-value="gbp"><span class="tick">✓</span><span>Google Business Profile setup</span></button>
-            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>No extras needed</span></button>
-          </div>
-        </div>
-
-        <!-- Q5: timeline -->
-        <div class="qb-step" data-step="5" hidden>
-          <p class="qb-q">How soon do you need it?</p>
-          <p class="qb-hint">// rushed timelines are possible, they just cost a little more</p>
-          <div class="qb-opts" data-mode="single" data-key="timeline">
-            <button type="button" class="qb-opt single" data-value="flexible"><span class="tick">●</span><span>I'm flexible<small>Standard timeline is fine</small></span></button>
-            <button type="button" class="qb-opt single" data-value="rush"><span class="tick">●</span><span>As soon as possible<small>Compressed timeline, +25%</small></span></button>
-          </div>
-        </div>
-
-        <!-- RESULT -->
-        <div class="qb-step" data-step="result" hidden>
-          <span class="qb-result-badge" id="qbBadge">RECOMMENDED FOR YOU</span>
-          <p class="qb-result-pkg" id="qbPkgName"></p>
-          <p class="qb-result-why" id="qbPkgWhy"></p>
-
-          <div class="qb-estimate">
-            <span class="qb-est-label">Ballpark estimate</span>
-            <span class="qb-est-value" id="qbEstimate"></span>
-          </div>
-
-          <div class="qb-breakdown" id="qbBreakdown"></div>
-
-          <p class="qb-result-fine">// This is a ballpark, not a bill. The fixed price is confirmed in writing after a free 20-minute call — and it can go <strong>down</strong> as well as up once we trim the scope to what you actually need. Summer deal prices valid on projects booked by 30 Sept 2026.</p>
-
-          <div class="qb-send">
-            <p class="qb-send-title">// send your answers over and I'll come back with a proper quote</p>
-            <label class="qb-check">
-              <input type="checkbox" id="qbMaintenance">
-              <span>I'm also interested in monthly maintenance <small>(updates, backups &amp; small changes — from £40/mo)</small></span>
-            </label>
-            <p class="qb-error" id="qbSendError" hidden></p>
-            <div class="qb-fields">
-              <div class="qb-field">
-                <label for="qbName">Name</label>
-                <input id="qbName" type="text" autocomplete="name" placeholder="Your name">
-              </div>
-              <div class="qb-field">
-                <label for="qbEmail">Email</label>
-                <input id="qbEmail" type="email" autocomplete="email" placeholder="you@example.com">
-              </div>
-              <div class="qb-field full">
-                <label for="qbBusiness">Business / social handle <span style="color:var(--ink-faint)">(optional)</span></label>
-                <input id="qbBusiness" type="text" placeholder="@yourbusiness">
-              </div>
-            </div>
-            <div class="qb-actions">
-              <button type="button" class="btn" id="qbSendBtn">Send my answers →</button>
-              <button type="button" class="btn btn-outline" id="qbWhatsAppBtn" hidden>Send on WhatsApp</button>
-              <button type="button" class="btn btn-outline" id="qbCopyBtn">Copy summary</button>
-              <span class="qb-copy-ok" id="qbCopyOk" hidden>copied ✓</span>
-              <button type="button" class="qb-restart" id="qbEdit">edit answers</button>
-              <button type="button" class="qb-restart" id="qbRestart">start over</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- nav -->
-        <div class="qb-nav" id="qbNav">
-          <button type="button" class="qb-btn qb-btn-back" id="qbBack" hidden>← Back</button>
-          <button type="button" class="qb-btn qb-btn-next" id="qbNext" disabled>Next →</button>
-        </div>
-
-      </div>
     </div>
   </div>
 </section>
