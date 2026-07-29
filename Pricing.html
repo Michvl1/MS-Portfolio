@@ -450,6 +450,13 @@ section{ position: relative; padding: 88px 0; border-bottom: 1px solid var(--lin
 }
 
 .qb-send{ border-top: 1px dashed var(--line); padding-top: 22px; }
+.qb-check{
+  display:flex; align-items:flex-start; gap: 10px;
+  font-size: 14px; color: var(--ink);
+  margin: 0 0 16px; cursor: pointer;
+}
+.qb-check input{ margin-top: 3px; accent-color: var(--accent); }
+.qb-check small{ display:block; color: var(--ink-faint); font-size: 12px; }
 .qb-send-title{
   font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin: 0 0 14px;
 }
@@ -684,7 +691,7 @@ footer{ padding: 40px 0 60px; }
         <p class="pkg-path">/packages/facelift</p>
         <h3 class="pkg-name">Frontend Facelift</h3>
         <p class="pkg-for">For a site that already exists but looks dated or isn't converting visitors.</p>
-        <div class="pkg-price"><span class="amount">£600</span><span class="from">from</span></div>
+        <div class="pkg-price"><span class="amount">£150</span><span class="from">from</span></div>
         <p class="pkg-timeline">1 – 2 weeks · fixed price</p>
         <ul class="pkg-features">
           <li>Full visual redesign using your existing content</li>
@@ -703,7 +710,7 @@ footer{ padding: 40px 0 60px; }
         <p class="pkg-path">/packages/full-site</p>
         <h3 class="pkg-name">Full Site Build</h3>
         <p class="pkg-for">For a brand new site with one or two features that actually do something.</p>
-        <div class="pkg-price"><span class="amount">£1,500</span><span class="from">from</span></div>
+        <div class="pkg-price"><span class="amount">£500</span><span class="from">from</span></div>
         <p class="pkg-timeline">3 – 4 weeks · fixed price</p>
         <ul class="pkg-features">
           <li>Custom design, up to 8 pages</li>
@@ -722,7 +729,7 @@ footer{ padding: 40px 0 60px; }
         <p class="pkg-path">/packages/full-stack</p>
         <h3 class="pkg-name">Full-Stack + Admin Portal</h3>
         <p class="pkg-for">For clubs and businesses that need a real system running behind the site.</p>
-        <div class="pkg-price"><span class="amount">£3,200</span><span class="from">from</span></div>
+        <div class="pkg-price"><span class="amount">£1,200</span><span class="from">from</span></div>
         <p class="pkg-timeline">6 – 8 weeks · fixed price</p>
         <ul class="pkg-features">
           <li>Everything in Full Site Build</li>
@@ -759,8 +766,20 @@ footer{ padding: 40px 0 60px; }
 
       <div class="qb-body">
 
-        <!-- Q1: project type -->
+        <!-- Q1: business type -->
         <div class="qb-step" data-step="0">
+          <p class="qb-q">What kind of business is this for?</p>
+          <p class="qb-hint">// helps me point you at the right examples</p>
+          <div class="qb-opts" data-mode="single" data-key="business">
+            <button type="button" class="qb-opt single" data-value="beauty"><span class="tick">●</span><span>Barber / hair &amp; beauty<small>Appointments, services, a strong look</small></span></button>
+            <button type="button" class="qb-opt single" data-value="club"><span class="tick">●</span><span>Sports club<small>Fixtures, squads, results, news</small></span></button>
+            <button type="button" class="qb-opt single" data-value="local"><span class="tick">●</span><span>Local business<small>Trades, food, retail, services</small></span></button>
+            <button type="button" class="qb-opt single" data-value="other"><span class="tick">●</span><span>Startup / something else</span></button>
+          </div>
+        </div>
+
+        <!-- Q2: project type -->
+        <div class="qb-step" data-step="1" hidden>
           <p class="qb-q">What's the starting point?</p>
           <p class="qb-hint">// pick one</p>
           <div class="qb-opts" data-mode="single" data-key="type">
@@ -771,7 +790,7 @@ footer{ padding: 40px 0 60px; }
         </div>
 
         <!-- Q2: features -->
-        <div class="qb-step" data-step="1" hidden>
+        <div class="qb-step" data-step="2" hidden>
           <p class="qb-q">What does it need to do?</p>
           <p class="qb-hint">// pick everything that applies</p>
           <div class="qb-opts" data-mode="multi" data-key="features">
@@ -785,7 +804,7 @@ footer{ padding: 40px 0 60px; }
         </div>
 
         <!-- Q3: pages -->
-        <div class="qb-step" data-step="2" hidden>
+        <div class="qb-step" data-step="3" hidden>
           <p class="qb-q">Roughly how many pages?</p>
           <p class="qb-hint">// a guess is fine — home, about, services etc. each count as one</p>
           <div class="qb-opts" data-mode="single" data-key="pages">
@@ -797,7 +816,7 @@ footer{ padding: 40px 0 60px; }
         </div>
 
         <!-- Q4: extras -->
-        <div class="qb-step" data-step="3" hidden>
+        <div class="qb-step" data-step="4" hidden>
           <p class="qb-q">Any extras on top?</p>
           <p class="qb-hint">// pick everything that applies</p>
           <div class="qb-opts" data-mode="multi" data-key="extras">
@@ -810,7 +829,7 @@ footer{ padding: 40px 0 60px; }
         </div>
 
         <!-- Q5: timeline -->
-        <div class="qb-step" data-step="4" hidden>
+        <div class="qb-step" data-step="5" hidden>
           <p class="qb-q">How soon do you need it?</p>
           <p class="qb-hint">// rushed timelines are possible, they just cost a little more</p>
           <div class="qb-opts" data-mode="single" data-key="timeline">
@@ -836,6 +855,10 @@ footer{ padding: 40px 0 60px; }
 
           <div class="qb-send">
             <p class="qb-send-title">// send your answers over and I'll come back with a proper quote</p>
+            <label class="qb-check">
+              <input type="checkbox" id="qbMaintenance">
+              <span>I'm also interested in monthly maintenance <small>(updates, backups &amp; small changes — from £40/mo)</small></span>
+            </label>
             <p class="qb-error" id="qbSendError" hidden></p>
             <div class="qb-fields">
               <div class="qb-field">
@@ -853,8 +876,10 @@ footer{ padding: 40px 0 60px; }
             </div>
             <div class="qb-actions">
               <button type="button" class="btn" id="qbSendBtn">Send my answers →</button>
+              <button type="button" class="btn btn-outline" id="qbWhatsAppBtn" hidden>Send on WhatsApp</button>
               <button type="button" class="btn btn-outline" id="qbCopyBtn">Copy summary</button>
               <span class="qb-copy-ok" id="qbCopyOk" hidden>copied ✓</span>
+              <button type="button" class="qb-restart" id="qbEdit">edit answers</button>
               <button type="button" class="qb-restart" id="qbRestart">start over</button>
             </div>
           </div>
@@ -909,9 +934,9 @@ const PRICING = {
   packages: {
     static:    { name: 'Static Website — Summer Deal',        low: 250,  high: 250,  time: '1 – 2 weeks' },
     portalDeal:{ name: 'Website + Admin Portal — Summer Deal', low: 400,  high: 400,  time: '1 – 2 weeks' },
-    facelift:  { name: 'Frontend Facelift',                    low: 600,  high: 800,  time: '1 – 2 weeks' },
-    fullsite:  { name: 'Full Site Build',                      low: 1500, high: 1800, time: '3 – 4 weeks' },
-    fullstack: { name: 'Full-Stack + Admin Portal',            low: 3200, high: 3600, time: '6 – 8 weeks' },
+    facelift:  { name: 'Frontend Facelift',                    low: 150,  high: 250,  time: '1 – 2 weeks' },
+    fullsite:  { name: 'Full Site Build',                      low: 500,  high: 650,  time: '3 – 4 weeks' },
+    fullstack: { name: 'Full-Stack + Admin Portal',            low: 1200, high: 1400, time: '6 – 8 weeks' },
     addon:     { name: 'Custom add-on work',                   low: 0,    high: 0,    time: '1 – 3 weeks' },
   },
   features: {
@@ -932,6 +957,9 @@ const PRICING = {
   extraPagePrice: 120,
   rushMultiplier: 1.25,
   contactEmail: 'hello@michaelshobande.dev',
+  // International format, digits only, e.g. '447700900123'.
+  // Leave empty to hide the WhatsApp button.
+  whatsappNumber: '',
 };
 
 (function () {
@@ -941,9 +969,9 @@ const PRICING = {
   const nextBtn = document.getElementById('qbNext');
   const progress = document.getElementById('qbProgress');
   const trackFill = document.getElementById('qbTrackFill');
-  const QUESTION_COUNT = 5;
+  const QUESTION_COUNT = 6;
 
-  const answers = { type: null, features: new Set(), pages: null, extras: new Set(), timeline: null };
+  const answers = { business: null, type: null, features: new Set(), pages: null, extras: new Set(), timeline: null };
   let current = 0;
 
   // ---------- option selection ----------
@@ -959,6 +987,11 @@ const PRICING = {
         group.querySelectorAll('.qb-opt').forEach(o => o.classList.remove('selected'));
         opt.classList.add('selected');
         answers[key] = value;
+        // snappier: auto-advance on single choices (but let them press the
+        // button themselves on the last question before the quote reveals)
+        if (current < QUESTION_COUNT - 1) {
+          setTimeout(() => { if (stepComplete(current)) showStep(current + 1); }, 280);
+        }
       } else {
         const set = answers[key];
         if (opt.dataset.exclusive !== undefined) {
@@ -980,11 +1013,12 @@ const PRICING = {
 
   function stepComplete(i) {
     switch (i) {
-      case 0: return !!answers.type;
-      case 1: return answers.features.size > 0;
-      case 2: return !!answers.pages;
-      case 3: return answers.extras.size > 0;
-      case 4: return !!answers.timeline;
+      case 0: return !!answers.business;
+      case 1: return !!answers.type;
+      case 2: return answers.features.size > 0;
+      case 3: return !!answers.pages;
+      case 4: return answers.extras.size > 0;
+      case 5: return !!answers.timeline;
       default: return true;
     }
   }
@@ -1130,6 +1164,7 @@ const PRICING = {
 
   // ---------- summary + send ----------
   const LABELS = {
+    business: { beauty: 'Barber / hair & beauty', club: 'Sports club', local: 'Local business', other: 'Startup / other' },
     type: { new: 'Brand new website', redesign: 'Redesign of current site', addon: 'Adding features to current site' },
     pages: { p5: '1–5 pages', p8: '6–8 pages', p12: '9–12+ pages', unsure: 'Not sure yet' },
     timeline: { flexible: 'Flexible', rush: 'ASAP (rush)' },
@@ -1147,11 +1182,13 @@ const PRICING = {
       '---------------------',
       name ? 'Name: ' + name : null,
       business ? 'Business/handle: ' + business : null,
+      'Business type: ' + LABELS.business[answers.business],
       'Starting point: ' + LABELS.type[answers.type],
       'Features: ' + (featureLabels.length ? featureLabels.join(', ') : 'None — info + contact'),
       'Pages: ' + LABELS.pages[answers.pages],
       'Extras: ' + (extraLabels.length ? extraLabels.join(', ') : 'None'),
       'Timeline: ' + LABELS.timeline[answers.timeline],
+      'Monthly maintenance: ' + (document.getElementById('qbMaintenance').checked ? 'Interested (from £40/mo)' : 'Not for now'),
       '',
       'Recommended: ' + q.pkg.name,
       'Ballpark: ' + (q.low === q.high ? fmt(q.low) : fmt(q.low) + ' – ' + fmt(q.high)),
@@ -1200,9 +1237,20 @@ const PRICING = {
     } catch (_) { /* clipboard blocked — no drama */ }
   });
 
+  // WhatsApp send — shown only when a number is configured
+  const waBtn = document.getElementById('qbWhatsAppBtn');
+  if (PRICING.whatsappNumber) waBtn.hidden = false;
+  waBtn.addEventListener('click', () => {
+    const text = buildSummary();
+    window.open('https://wa.me/' + PRICING.whatsappNumber + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  });
+
+  document.getElementById('qbEdit').addEventListener('click', () => showStep(QUESTION_COUNT - 1));
+
   document.getElementById('qbRestart').addEventListener('click', () => {
-    answers.type = null; answers.pages = null; answers.timeline = null;
+    answers.business = null; answers.type = null; answers.pages = null; answers.timeline = null;
     answers.features.clear(); answers.extras.clear();
+    document.getElementById('qbMaintenance').checked = false;
     document.querySelectorAll('.qb-opt').forEach(o => o.classList.remove('selected'));
     document.getElementById('qbName').value = '';
     document.getElementById('qbEmail').value = '';
