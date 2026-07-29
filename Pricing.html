@@ -105,6 +105,105 @@ section{ position: relative; padding: 88px 0; border-bottom: 1px solid var(--lin
 }
 .hero p{ color: var(--ink-soft); font-size: 17px; max-width: 56ch; margin: 0; }
 
+/* ===== SUMMER DEAL ===== */
+.summer{ padding: 64px 0; }
+.deal-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid #D9A82E;
+  background: radial-gradient(120% 160% at 0% 0%, #FFF6DC 0%, #F9E4A8 45%, #EDC964 100%);
+  box-shadow: 0 24px 54px -28px rgba(180,132,20,0.55);
+  padding: 40px 40px 34px;
+}
+.deal-card::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.5) 50%, transparent 58%);
+  pointer-events:none;
+}
+.deal-eyebrow{
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  color: #8A5E06; letter-spacing: 0.05em; text-transform: uppercase;
+  margin: 0 0 12px; position:relative; z-index:1;
+}
+.deal-card h2{
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 36px); letter-spacing: -0.01em;
+  margin: 0 0 8px; color: #3A2A05; position:relative; z-index:1;
+}
+.deal-intro{ color: #6B520F; margin: 0 0 28px; max-width: 56ch; font-size: 15.5px; position:relative; z-index:1; }
+
+.deal-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  position: relative; z-index: 1;
+}
+.deal-offer{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid #E3C258;
+  border-radius: 12px;
+  padding: 24px 22px;
+  display:flex; flex-direction:column;
+}
+.deal-offer h3{
+  font-family: var(--display); font-size: 19px; margin: 0 0 4px; color: #2E2204;
+  letter-spacing: -0.01em;
+}
+.deal-offer .deal-for{ color: #7A5F14; font-size: 13.5px; margin: 0 0 16px; }
+.deal-price{ display:flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.deal-price .amount{
+  font-family: var(--display); font-size: 34px; font-weight: 700; color: #3A2A05;
+}
+.deal-price .tag{
+  font-family: var(--mono); font-size: 11px; font-weight: 600; color: #8A5E06;
+  border: 1px solid #D9A82E; border-radius: 999px; padding: 3px 9px;
+  background: #FFF3CE; white-space:nowrap;
+}
+.deal-offer ul{
+  list-style:none; margin:0 0 20px; padding:0;
+  display:flex; flex-direction:column; gap: 9px; flex-grow:1;
+}
+.deal-offer ul li{
+  font-size: 13.5px; color: #3A2A05; display:flex; gap: 8px; align-items:flex-start;
+}
+.deal-offer ul li::before{
+  content:"✓"; color:#8A5E06; font-family: var(--mono); font-size: 12px;
+  flex-shrink:0; margin-top:1px;
+}
+.deal-cta{
+  font-family: var(--body); font-weight: 600; font-size: 14px;
+  text-align:center; text-decoration:none; padding: 11px 16px; border-radius: 8px;
+  background: #3A2A05; color: #FDF3D2;
+  transition: background .15s ease, transform .15s ease;
+}
+.deal-cta:hover, .deal-cta:focus-visible{ background:#8A5E06; transform: translateY(-1px); }
+.deal-fine{
+  position:relative; z-index:1;
+  margin: 22px 0 0; font-family: var(--mono); font-size: 12px; color: #8A6A1B;
+}
+
+/* red corner ribbon */
+.deal-ribbon{
+  position:absolute; top:0; right:0; z-index: 3;
+  width: 190px; height: 190px; overflow: hidden; pointer-events:none;
+}
+.deal-ribbon span{
+  position:absolute; display:block;
+  width: 280px; padding: 8px 0;
+  background: linear-gradient(#E0402F, #C22B1C);
+  box-shadow: 0 4px 10px rgba(140,20,10,0.35);
+  color:#fff; font-family: var(--mono); font-size: 11.5px; font-weight:600;
+  letter-spacing: 0.05em; text-transform: uppercase; text-align:center;
+  right: -72px; top: 46px;
+  transform: rotate(45deg);
+}
+@media (max-width: 760px){
+  .deal-card{ padding: 84px 22px 28px; }
+  .deal-grid{ grid-template-columns: 1fr; }
+  .deal-ribbon{ width: 150px; height: 150px; }
+  .deal-ribbon span{ width: 230px; right: -60px; top: 36px; font-size: 10.5px; }
+}
+
 /* ===== PRICE LIST ===== */
 .list-head{ margin-bottom: 40px; }
 .list-head h2{
@@ -231,6 +330,49 @@ footer{ padding: 40px 0 60px; }
     <p>Every project starts with a free 20-minute scoping call. You'll get a fixed price before any work begins — not an hourly meter running in the background. Below is what individual work costs, and three ready-made packages for the most common jobs.</p>
   </div>
 </header>
+
+<section id="summer-deal" class="summer">
+  <div class="wrap">
+    <p class="section-path">~/pricing/summer-deal</p>
+    <div class="deal-card reveal">
+      <div class="deal-ribbon" aria-hidden="true"><span>Ends 30 Sept</span></div>
+      <p class="deal-eyebrow">☀ Limited summer offer</p>
+      <h2>Summer Deal</h2>
+      <p class="deal-intro">Two heavily reduced packages, available on projects booked before the end of September 2026. Same quality, same fixed-price promise — just a much smaller invoice.</p>
+
+      <div class="deal-grid">
+        <div class="deal-offer">
+          <h3>Static Website</h3>
+          <p class="deal-for">A clean, fast site that puts your business on the map.</p>
+          <div class="deal-price"><span class="amount">£250</span><span class="tag">Summer price</span></div>
+          <ul>
+            <li>Custom design, up to 5 pages</li>
+            <li>Fully responsive, mobile-first build</li>
+            <li>Contact form &amp; social links</li>
+            <li>Basic on-page SEO</li>
+            <li>1 round of revisions</li>
+          </ul>
+          <a href="index.html#contact" class="deal-cta">Claim the static site deal</a>
+        </div>
+
+        <div class="deal-offer">
+          <h3>Website + Admin Portal</h3>
+          <p class="deal-for">A full site plus a secure portal to manage your own content.</p>
+          <div class="deal-price"><span class="amount">£400</span><span class="tag">Summer price</span></div>
+          <ul>
+            <li>Everything in the Static Website deal</li>
+            <li>Secure admin login</li>
+            <li>Edit content without touching code</li>
+            <li>Handover &amp; training session</li>
+          </ul>
+          <a href="index.html#contact" class="deal-cta">Claim the portal deal</a>
+        </div>
+      </div>
+
+      <p class="deal-fine">// Offer valid on projects booked by 30 September 2026. Fixed price confirmed in writing before work starts.</p>
+    </div>
+  </div>
+</section>
 
 <section id="price-list">
   <div class="wrap">
