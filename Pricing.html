@@ -44,7 +44,7 @@ body{
 a{ color: inherit; }
 .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
 
-a:focus-visible, button:focus-visible{
+a:focus-visible, button:focus-visible, input:focus-visible{
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
@@ -283,6 +283,205 @@ section{ position: relative; padding: 88px 0; border-bottom: 1px solid var(--lin
   .packages{ grid-template-columns: 1fr; }
 }
 
+/* ===== QUOTE BUILDER ===== */
+.qb-head{ margin-bottom: 36px; }
+.qb-head h2{ font-family: var(--display); font-size: clamp(24px,2.8vw,30px); margin: 0 0 10px; letter-spacing: -0.01em; }
+.qb-head p{ color: var(--ink-soft); margin:0; max-width: 56ch; }
+
+.qb-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 44px -26px rgba(20,23,28,0.3);
+  max-width: 760px;
+}
+.qb-bar{
+  display:flex; align-items:center; gap: 10px;
+  padding: 12px 18px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+}
+.qb-bar-title{
+  font-family: var(--mono); font-size: 12px; color: var(--ink-soft);
+  margin-left: 4px;
+}
+.qb-progress{
+  margin-left: auto;
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+}
+.qb-track{
+  height: 3px; background: var(--bg-alt);
+}
+.qb-track-fill{
+  height: 100%; width: 0%;
+  background: var(--accent);
+  transition: width .3s ease;
+}
+.qb-body{ padding: 30px 30px 26px; }
+@media (max-width: 560px){ .qb-body{ padding: 22px 18px 20px; } }
+
+.qb-step[hidden]{ display:none; }
+.qb-q{
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+}
+.qb-hint{
+  color: var(--ink-faint);
+  font-size: 13.5px;
+  margin: 0 0 20px;
+  font-family: var(--mono);
+}
+
+.qb-opts{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+@media (max-width: 560px){ .qb-opts{ grid-template-columns: 1fr; } }
+.qb-opt{
+  text-align: left;
+  font-family: var(--body);
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 13px 14px;
+  cursor: pointer;
+  display:flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color .15s ease, background .15s ease;
+}
+.qb-opt small{ display:block; color: var(--ink-faint); font-size: 12px; margin-top: 1px; }
+.qb-opt .tick{
+  width: 18px; height: 18px; flex-shrink: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 5px;
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--mono); font-size: 11px; color: transparent;
+  transition: all .15s ease;
+}
+.qb-opt.single .tick{ border-radius: 50%; }
+.qb-opt:hover{ border-color: var(--ink-faint); }
+.qb-opt.selected{
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.qb-opt.selected .tick{
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.qb-nav{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 12px;
+}
+.qb-btn{
+  font-family: var(--body); font-weight: 600; font-size: 14.5px;
+  padding: 11px 20px; border-radius: 8px; border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.qb-btn-next{ background: var(--ink); color: var(--bg); }
+.qb-btn-next:hover:not(:disabled), .qb-btn-next:focus-visible{ background: var(--accent-ink); transform: translateY(-1px); }
+.qb-btn-next:disabled{ opacity: .45; cursor: not-allowed; }
+.qb-btn-back{ background: transparent; color: var(--ink-soft); border-color: var(--line); }
+.qb-btn-back:hover, .qb-btn-back:focus-visible{ border-color: var(--ink); color: var(--ink); }
+.qb-btn-back[hidden]{ visibility: hidden; display: inline-block; }
+
+/* result screen */
+.qb-result-badge{
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 12px;
+  display:inline-block;
+  margin-bottom: 12px;
+}
+.qb-result-pkg{
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+.qb-result-why{ color: var(--ink-soft); font-size: 14.5px; margin: 0 0 20px; }
+.qb-estimate{
+  display:flex; align-items: baseline; gap: 10px;
+  padding: 18px 20px;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.qb-estimate .qb-est-label{
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.qb-estimate .qb-est-value{
+  font-family: var(--display); font-size: 30px; font-weight: 700;
+}
+.qb-breakdown{ margin: 0 0 8px; }
+.qb-breakdown .price-row{ padding: 10px 0; }
+.qb-breakdown .price-row-name{ font-size: 14px; }
+.qb-breakdown .price-row-value{ font-size: 13px; }
+.qb-result-fine{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 16px 0 24px;
+  line-height: 1.6;
+}
+
+.qb-send{ border-top: 1px dashed var(--line); padding-top: 22px; }
+.qb-send-title{
+  font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin: 0 0 14px;
+}
+.qb-fields{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+@media (max-width: 560px){ .qb-fields{ grid-template-columns: 1fr; } }
+.qb-field label{
+  display:block; font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); margin-bottom: 5px;
+}
+.qb-field input{
+  width: 100%; padding: 10px 12px;
+  font-family: var(--body); font-size: 14.5px;
+  border: 1px solid var(--line); border-radius: 7px;
+  background: var(--bg); color: var(--ink);
+}
+.qb-field input::placeholder{ color: var(--ink-faint); }
+.qb-field.full{ grid-column: 1 / -1; }
+.qb-actions{ display:flex; gap: 12px; flex-wrap: wrap; align-items:center; }
+.qb-copy-ok{
+  font-family: var(--mono); font-size: 12px; color: var(--good);
+}
+.qb-restart{
+  background:none; border:none; cursor:pointer; padding: 0;
+  font-family: var(--mono); font-size: 12px; color: var(--ink-faint);
+  text-decoration: underline;
+  margin-left: auto;
+}
+.qb-restart:hover{ color: var(--ink); }
+.qb-error{
+  font-size: 13px; color: #A5271A; margin: 0 0 12px;
+}
+.qb-error[hidden]{ display: none; }
+
 /* ===== FAQ / CTA ===== */
 .cta-band{
   display:flex; align-items:center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
@@ -293,8 +492,11 @@ section{ position: relative; padding: 88px 0; border-bottom: 1px solid var(--lin
   font-family: var(--body); font-weight: 600; font-size: 15px; padding: 13px 24px;
   border-radius: 8px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
   background: var(--ink); color: var(--bg); transition: background .15s ease, transform .15s ease; flex-shrink:0;
+  border: none; cursor: pointer;
 }
 .btn:hover, .btn:focus-visible{ background: var(--accent-ink); transform: translateY(-1px); }
+.btn-outline{ background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn-outline:hover, .btn-outline:focus-visible{ background: transparent; border-color: var(--ink); }
 
 footer{ padding: 40px 0 60px; }
 .footer-inner{ display:flex; align-items:center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -538,10 +740,141 @@ footer{ padding: 40px 0 60px; }
   </div>
 </section>
 
+<!-- ===== QUOTE BUILDER ===== -->
+<section id="quote-builder">
+  <div class="wrap">
+    <p class="section-path">~/pricing/quote-builder</p>
+    <div class="qb-head reveal">
+      <h2>Not sure which one fits? Build your quote.</h2>
+      <p>Answer five quick questions and I'll point you at the right package with a ballpark price — no email required to see the number.</p>
+    </div>
+
+    <div class="qb-card reveal">
+      <div class="qb-bar">
+        <span class="dot-row"><span></span><span></span><span></span></span>
+        <span class="qb-bar-title">~/pricing % ./quote-builder</span>
+        <span class="qb-progress" id="qbProgress">question 1/5</span>
+      </div>
+      <div class="qb-track"><div class="qb-track-fill" id="qbTrackFill"></div></div>
+
+      <div class="qb-body">
+
+        <!-- Q1: project type -->
+        <div class="qb-step" data-step="0">
+          <p class="qb-q">What's the starting point?</p>
+          <p class="qb-hint">// pick one</p>
+          <div class="qb-opts" data-mode="single" data-key="type">
+            <button type="button" class="qb-opt single" data-value="new"><span class="tick">●</span><span>A brand new website<small>Nothing exists yet, or I'm starting over</small></span></button>
+            <button type="button" class="qb-opt single" data-value="redesign"><span class="tick">●</span><span>Redesign my current site<small>It exists but looks dated or underperforms</small></span></button>
+            <button type="button" class="qb-opt single" data-value="addon"><span class="tick">●</span><span>Add features to my current site<small>The site is fine, it just needs to do more</small></span></button>
+          </div>
+        </div>
+
+        <!-- Q2: features -->
+        <div class="qb-step" data-step="1" hidden>
+          <p class="qb-q">What does it need to do?</p>
+          <p class="qb-hint">// pick everything that applies</p>
+          <div class="qb-opts" data-mode="multi" data-key="features">
+            <button type="button" class="qb-opt" data-value="booking"><span class="tick">✓</span><span>Online booking<small>Services, availability, confirmations</small></span></button>
+            <button type="button" class="qb-opt" data-value="payments"><span class="tick">✓</span><span>Take payments<small>Stripe / PayPal, deposits or checkout</small></span></button>
+            <button type="button" class="qb-opt" data-value="shop"><span class="tick">✓</span><span>Online shop<small>Sell products with card payments</small></span></button>
+            <button type="button" class="qb-opt" data-value="members"><span class="tick">✓</span><span>Members / fixtures database<small>Squads, results, standings</small></span></button>
+            <button type="button" class="qb-opt" data-value="portal"><span class="tick">✓</span><span>Edit content myself<small>A secure admin portal, no developer needed</small></span></button>
+            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>None of these<small>Info, photos and a contact form is plenty</small></span></button>
+          </div>
+        </div>
+
+        <!-- Q3: pages -->
+        <div class="qb-step" data-step="2" hidden>
+          <p class="qb-q">Roughly how many pages?</p>
+          <p class="qb-hint">// a guess is fine — home, about, services etc. each count as one</p>
+          <div class="qb-opts" data-mode="single" data-key="pages">
+            <button type="button" class="qb-opt single" data-value="p5"><span class="tick">●</span><span>1 – 5 pages</span></button>
+            <button type="button" class="qb-opt single" data-value="p8"><span class="tick">●</span><span>6 – 8 pages</span></button>
+            <button type="button" class="qb-opt single" data-value="p12"><span class="tick">●</span><span>9 – 12+ pages</span></button>
+            <button type="button" class="qb-opt single" data-value="unsure"><span class="tick">●</span><span>Not sure yet</span></button>
+          </div>
+        </div>
+
+        <!-- Q4: extras -->
+        <div class="qb-step" data-step="3" hidden>
+          <p class="qb-q">Any extras on top?</p>
+          <p class="qb-hint">// pick everything that applies</p>
+          <div class="qb-opts" data-mode="multi" data-key="extras">
+            <button type="button" class="qb-opt" data-value="logo"><span class="tick">✓</span><span>Logo &amp; brand refresh<small>Colours, type, simple logo mark</small></span></button>
+            <button type="button" class="qb-opt" data-value="copy"><span class="tick">✓</span><span>Copywriting<small>I'd rather you write the website text</small></span></button>
+            <button type="button" class="qb-opt" data-value="blog"><span class="tick">✓</span><span>Blog / news section</span></button>
+            <button type="button" class="qb-opt" data-value="gbp"><span class="tick">✓</span><span>Google Business Profile setup</span></button>
+            <button type="button" class="qb-opt" data-value="none" data-exclusive><span class="tick">✓</span><span>No extras needed</span></button>
+          </div>
+        </div>
+
+        <!-- Q5: timeline -->
+        <div class="qb-step" data-step="4" hidden>
+          <p class="qb-q">How soon do you need it?</p>
+          <p class="qb-hint">// rushed timelines are possible, they just cost a little more</p>
+          <div class="qb-opts" data-mode="single" data-key="timeline">
+            <button type="button" class="qb-opt single" data-value="flexible"><span class="tick">●</span><span>I'm flexible<small>Standard timeline is fine</small></span></button>
+            <button type="button" class="qb-opt single" data-value="rush"><span class="tick">●</span><span>As soon as possible<small>Compressed timeline, +25%</small></span></button>
+          </div>
+        </div>
+
+        <!-- RESULT -->
+        <div class="qb-step" data-step="result" hidden>
+          <span class="qb-result-badge" id="qbBadge">RECOMMENDED FOR YOU</span>
+          <p class="qb-result-pkg" id="qbPkgName"></p>
+          <p class="qb-result-why" id="qbPkgWhy"></p>
+
+          <div class="qb-estimate">
+            <span class="qb-est-label">Ballpark estimate</span>
+            <span class="qb-est-value" id="qbEstimate"></span>
+          </div>
+
+          <div class="qb-breakdown" id="qbBreakdown"></div>
+
+          <p class="qb-result-fine">// This is a ballpark, not a bill. The fixed price is confirmed in writing after a free 20-minute call — and it can go <strong>down</strong> as well as up once we trim the scope to what you actually need. Summer deal prices valid on projects booked by 30 Sept 2026.</p>
+
+          <div class="qb-send">
+            <p class="qb-send-title">// send your answers over and I'll come back with a proper quote</p>
+            <p class="qb-error" id="qbSendError" hidden></p>
+            <div class="qb-fields">
+              <div class="qb-field">
+                <label for="qbName">Name</label>
+                <input id="qbName" type="text" autocomplete="name" placeholder="Your name">
+              </div>
+              <div class="qb-field">
+                <label for="qbEmail">Email</label>
+                <input id="qbEmail" type="email" autocomplete="email" placeholder="you@example.com">
+              </div>
+              <div class="qb-field full">
+                <label for="qbBusiness">Business / social handle <span style="color:var(--ink-faint)">(optional)</span></label>
+                <input id="qbBusiness" type="text" placeholder="@yourbusiness">
+              </div>
+            </div>
+            <div class="qb-actions">
+              <button type="button" class="btn" id="qbSendBtn">Send my answers →</button>
+              <button type="button" class="btn btn-outline" id="qbCopyBtn">Copy summary</button>
+              <span class="qb-copy-ok" id="qbCopyOk" hidden>copied ✓</span>
+              <button type="button" class="qb-restart" id="qbRestart">start over</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- nav -->
+        <div class="qb-nav" id="qbNav">
+          <button type="button" class="qb-btn qb-btn-back" id="qbBack" hidden>← Back</button>
+          <button type="button" class="qb-btn qb-btn-next" id="qbNext" disabled>Next →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="cta">
   <div class="wrap cta-band reveal">
     <div>
-      <h2>Not sure which one fits?</h2>
+      <h2>Prefer to just talk it through?</h2>
       <p>Send over what you're trying to build — I'll tell you honestly which package (or mix of the two) makes sense, no upsell.</p>
     </div>
     <a href="index.html#contact" class="btn">Get a free quote →</a>
@@ -560,11 +893,325 @@ footer{ padding: 40px 0 60px; }
 </footer>
 
 <script>
+// reveal on scroll
 const revealEls = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 revealEls.forEach(el => io.observe(el));
+
+/* ============================================================
+   QUOTE BUILDER
+   All the numbers live in PRICING below — tweak freely, the
+   logic never needs touching. Ranges are [low, high] in GBP.
+   ============================================================ */
+const PRICING = {
+  packages: {
+    static:    { name: 'Static Website — Summer Deal',        low: 250,  high: 250,  time: '1 – 2 weeks' },
+    portalDeal:{ name: 'Website + Admin Portal — Summer Deal', low: 400,  high: 400,  time: '1 – 2 weeks' },
+    facelift:  { name: 'Frontend Facelift',                    low: 600,  high: 800,  time: '1 – 2 weeks' },
+    fullsite:  { name: 'Full Site Build',                      low: 1500, high: 1800, time: '3 – 4 weeks' },
+    fullstack: { name: 'Full-Stack + Admin Portal',            low: 3200, high: 3600, time: '6 – 8 weeks' },
+    addon:     { name: 'Custom add-on work',                   low: 0,    high: 0,    time: '1 – 3 weeks' },
+  },
+  features: {
+    booking:  { label: 'Online booking system',        low: 300, high: 600 },
+    payments: { label: 'Payment integration',          low: 150, high: 300 },
+    shop:     { label: 'Online shop',                  low: 700, high: 1200 },
+    members:  { label: 'Members / fixtures database',  low: 350, high: 800 },
+    portal:   { label: 'Admin / staff login portal',   low: 500, high: 1500 },
+  },
+  extras: {
+    logo: { label: 'Logo & brand refresh',           low: 180, high: 350 },
+    copy: { label: 'Copywriting (3–5 pages)',        low: 180, high: 300 },
+    blog: { label: 'Blog / news section',            low: 200, high: 200 },
+    gbp:  { label: 'Google Business Profile setup',  low: 50,  high: 50 },
+  },
+  includedPages: { static: 5, portalDeal: 5, facelift: 5, fullsite: 8, fullstack: 12, addon: 99 },
+  pageCounts: { p5: 5, p8: 8, p12: 12, unsure: null },
+  extraPagePrice: 120,
+  rushMultiplier: 1.25,
+  contactEmail: 'hello@michaelshobande.dev',
+};
+
+(function () {
+  const steps = Array.from(document.querySelectorAll('.qb-step'));
+  const nav = document.getElementById('qbNav');
+  const backBtn = document.getElementById('qbBack');
+  const nextBtn = document.getElementById('qbNext');
+  const progress = document.getElementById('qbProgress');
+  const trackFill = document.getElementById('qbTrackFill');
+  const QUESTION_COUNT = 5;
+
+  const answers = { type: null, features: new Set(), pages: null, extras: new Set(), timeline: null };
+  let current = 0;
+
+  // ---------- option selection ----------
+  document.querySelectorAll('.qb-opts').forEach(group => {
+    const mode = group.dataset.mode;
+    const key = group.dataset.key;
+    group.addEventListener('click', (e) => {
+      const opt = e.target.closest('.qb-opt');
+      if (!opt) return;
+      const value = opt.dataset.value;
+
+      if (mode === 'single') {
+        group.querySelectorAll('.qb-opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[key] = value;
+      } else {
+        const set = answers[key];
+        if (opt.dataset.exclusive !== undefined) {
+          // "none" clears everything else
+          group.querySelectorAll('.qb-opt').forEach(o => o.classList.remove('selected'));
+          set.clear();
+          opt.classList.add('selected');
+          set.add(value);
+        } else {
+          group.querySelector('[data-exclusive]')?.classList.remove('selected');
+          set.delete('none');
+          if (set.has(value)) { set.delete(value); opt.classList.remove('selected'); }
+          else { set.add(value); opt.classList.add('selected'); }
+        }
+      }
+      updateNav();
+    });
+  });
+
+  function stepComplete(i) {
+    switch (i) {
+      case 0: return !!answers.type;
+      case 1: return answers.features.size > 0;
+      case 2: return !!answers.pages;
+      case 3: return answers.extras.size > 0;
+      case 4: return !!answers.timeline;
+      default: return true;
+    }
+  }
+
+  function updateNav() {
+    nextBtn.disabled = !stepComplete(current);
+    backBtn.hidden = current === 0;
+    nextBtn.textContent = current === QUESTION_COUNT - 1 ? 'See my quote →' : 'Next →';
+    progress.textContent = 'question ' + (current + 1) + '/' + QUESTION_COUNT;
+    trackFill.style.width = ((current) / QUESTION_COUNT * 100) + '%';
+  }
+
+  function showStep(i) {
+    current = i;
+    steps.forEach(s => s.hidden = s.dataset.step !== String(i) && !(i === 'result' && s.dataset.step === 'result'));
+    if (i === 'result') {
+      steps.forEach(s => s.hidden = s.dataset.step !== 'result');
+      nav.style.display = 'none';
+      progress.textContent = 'quote ready';
+      trackFill.style.width = '100%';
+      renderResult(calculate());
+    } else {
+      nav.style.display = '';
+      updateNav();
+    }
+  }
+
+  backBtn.addEventListener('click', () => showStep(current - 1));
+  nextBtn.addEventListener('click', () => {
+    if (current === QUESTION_COUNT - 1) showStep('result');
+    else showStep(current + 1);
+  });
+
+  // ---------- pricing engine ----------
+  function round50(n) { return Math.round(n / 50) * 50; }
+  function fmt(n) { return '£' + n.toLocaleString('en-GB'); }
+
+  function calculate() {
+    const f = answers.features;
+    const items = [];
+    let low = 0, high = 0;
+
+    const coreFeatures = ['booking', 'payments', 'shop', 'members'].filter(x => f.has(x));
+    const wantsPortal = f.has('portal');
+    const heavy = f.has('shop') || f.has('members') || (coreFeatures.length + (wantsPortal ? 1 : 0)) >= 2;
+
+    let pkgKey, why;
+
+    if (answers.type === 'addon') {
+      pkgKey = 'addon';
+      why = 'Your site stays as it is — I just build the new features into it.';
+    } else if (heavy) {
+      pkgKey = 'fullstack';
+      why = 'You need a real system behind the site — database, admin portal and multiple features — so the full-stack package is the honest fit.';
+    } else if (coreFeatures.length === 1 && answers.type === 'new') {
+      pkgKey = 'fullsite';
+      why = 'A new build with one working feature is exactly what the Full Site Build is for — your ' +
+            PRICING.features[coreFeatures[0]].label.toLowerCase() + ' is included in the base price.';
+    } else if (answers.type === 'redesign') {
+      pkgKey = 'facelift';
+      why = 'Your content already exists — a frontend facelift rebuilds the look and feel without paying for a full rebuild.';
+    } else if (wantsPortal) {
+      pkgKey = 'portalDeal';
+      why = 'A clean site you can edit yourself — and it currently falls under the summer deal price.';
+    } else {
+      pkgKey = 'static';
+      why = 'A fast, focused site does the job here — and it currently falls under the summer deal price.';
+    }
+
+    const pkg = PRICING.packages[pkgKey];
+    if (pkg.low > 0) {
+      low += pkg.low; high += pkg.high;
+      items.push([pkg.name + ' (base)', fmt(pkg.low) + (pkg.high > pkg.low ? ' – ' + fmt(pkg.high) : '')]);
+    }
+
+    // Features not already covered by the chosen package
+    const included = new Set();
+    if (pkgKey === 'fullsite' && coreFeatures.length === 1) included.add(coreFeatures[0]);
+    if (pkgKey === 'fullstack') {
+      included.add('portal');
+      // full-stack base covers the single most expensive core feature
+      const priciest = coreFeatures.sort((a, b) => PRICING.features[b].high - PRICING.features[a].high)[0];
+      if (priciest) included.add(priciest);
+    }
+    if (pkgKey === 'portalDeal') included.add('portal');
+
+    f.forEach(key => {
+      if (key === 'none' || included.has(key)) return;
+      const feat = PRICING.features[key];
+      if (!feat) return;
+      low += feat.low; high += feat.high;
+      items.push([feat.label, fmt(feat.low) + ' – ' + fmt(feat.high)]);
+    });
+
+    // Extra pages beyond what the package includes
+    const wanted = PRICING.pageCounts[answers.pages];
+    const includedPages = PRICING.includedPages[pkgKey];
+    if (wanted && wanted > includedPages) {
+      const extra = (wanted - includedPages) * PRICING.extraPagePrice;
+      low += extra; high += extra;
+      items.push(['Extra pages (' + (wanted - includedPages) + ' × £' + PRICING.extraPagePrice + ')', fmt(extra)]);
+    }
+
+    // Extras
+    answers.extras.forEach(key => {
+      if (key === 'none') return;
+      const ex = PRICING.extras[key];
+      if (!ex) return;
+      low += ex.low; high += ex.high;
+      items.push([ex.label, fmt(ex.low) + (ex.high > ex.low ? ' – ' + fmt(ex.high) : '')]);
+    });
+
+    // Rush
+    if (answers.timeline === 'rush') {
+      const addLow = low * (PRICING.rushMultiplier - 1);
+      const addHigh = high * (PRICING.rushMultiplier - 1);
+      items.push(['Rush delivery (+25%)', fmt(round50(addLow)) + ' – ' + fmt(round50(addHigh))]);
+      low *= PRICING.rushMultiplier;
+      high *= PRICING.rushMultiplier;
+    }
+
+    return { pkg, pkgKey, why, items, low: round50(low), high: round50(high) };
+  }
+
+  // ---------- result rendering ----------
+  function renderResult(q) {
+    document.getElementById('qbPkgName').textContent = q.pkg.name;
+    document.getElementById('qbPkgWhy').textContent = q.why + ' Typical timeline: ' + q.pkg.time + '.';
+    document.getElementById('qbEstimate').textContent =
+      q.low === q.high ? fmt(q.low) : fmt(q.low) + ' – ' + fmt(q.high);
+
+    const bd = document.getElementById('qbBreakdown');
+    bd.innerHTML = '';
+    q.items.forEach(([name, value]) => {
+      const row = document.createElement('div');
+      row.className = 'price-row';
+      const n = document.createElement('div'); n.className = 'price-row-name'; n.textContent = name;
+      const v = document.createElement('div'); v.className = 'price-row-value'; v.textContent = value;
+      row.append(n, v);
+      bd.appendChild(row);
+    });
+  }
+
+  // ---------- summary + send ----------
+  const LABELS = {
+    type: { new: 'Brand new website', redesign: 'Redesign of current site', addon: 'Adding features to current site' },
+    pages: { p5: '1–5 pages', p8: '6–8 pages', p12: '9–12+ pages', unsure: 'Not sure yet' },
+    timeline: { flexible: 'Flexible', rush: 'ASAP (rush)' },
+  };
+
+  function buildSummary() {
+    const q = calculate();
+    const name = document.getElementById('qbName').value.trim();
+    const business = document.getElementById('qbBusiness').value.trim();
+    const featureLabels = [...answers.features].filter(x => x !== 'none').map(x => PRICING.features[x].label);
+    const extraLabels = [...answers.extras].filter(x => x !== 'none').map(x => PRICING.extras[x].label);
+
+    return [
+      'QUOTE BUILDER SUMMARY',
+      '---------------------',
+      name ? 'Name: ' + name : null,
+      business ? 'Business/handle: ' + business : null,
+      'Starting point: ' + LABELS.type[answers.type],
+      'Features: ' + (featureLabels.length ? featureLabels.join(', ') : 'None — info + contact'),
+      'Pages: ' + LABELS.pages[answers.pages],
+      'Extras: ' + (extraLabels.length ? extraLabels.join(', ') : 'None'),
+      'Timeline: ' + LABELS.timeline[answers.timeline],
+      '',
+      'Recommended: ' + q.pkg.name,
+      'Ballpark: ' + (q.low === q.high ? fmt(q.low) : fmt(q.low) + ' – ' + fmt(q.high)),
+      '(To be confirmed on a scoping call — can move down as well as up.)',
+    ].filter(Boolean).join('\n');
+  }
+
+  document.getElementById('qbSendBtn').addEventListener('click', () => {
+    const err = document.getElementById('qbSendError');
+    err.hidden = true;
+    const name = document.getElementById('qbName').value.trim();
+    const email = document.getElementById('qbEmail').value.trim();
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      err.textContent = 'Add your name and a valid email so I can reply to you.';
+      err.hidden = false;
+      return;
+    }
+
+    const summary = buildSummary() + '\n\nReply-to: ' + email;
+
+    /* ------------------------------------------------------------
+       BACKEND HOOK — when the backend exists, replace the mailto
+       below with something like:
+
+       await fetch(WORKER_URL + '/quote', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ name, email, summary, answers: {...} }),
+       });
+
+       For now, mailto means answers still reach the inbox with
+       zero infrastructure.
+       ------------------------------------------------------------ */
+    const subject = 'Quote builder enquiry — ' + name;
+    window.location.href = 'mailto:' + PRICING.contactEmail +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(summary);
+  });
+
+  document.getElementById('qbCopyBtn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(buildSummary());
+      const ok = document.getElementById('qbCopyOk');
+      ok.hidden = false;
+      setTimeout(() => { ok.hidden = true; }, 2000);
+    } catch (_) { /* clipboard blocked — no drama */ }
+  });
+
+  document.getElementById('qbRestart').addEventListener('click', () => {
+    answers.type = null; answers.pages = null; answers.timeline = null;
+    answers.features.clear(); answers.extras.clear();
+    document.querySelectorAll('.qb-opt').forEach(o => o.classList.remove('selected'));
+    document.getElementById('qbName').value = '';
+    document.getElementById('qbEmail').value = '';
+    document.getElementById('qbBusiness').value = '';
+    showStep(0);
+  });
+
+  updateNav();
+})();
 </script>
 
 </body>
