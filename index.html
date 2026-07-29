@@ -291,6 +291,110 @@ h1.hero-name{
   margin-top: 4px;
 }
 
+/* right-hand column: photo + skills stacked */
+.about-side{
+  display:flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* profile photo card — styled like the site's terminal windows */
+.profile-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 44px -22px rgba(20,23,28,0.3);
+}
+.profile-head{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+}
+.profile-file{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  margin-left: 4px;
+}
+.profile-frame{
+  position: relative;
+  aspect-ratio: 4 / 4.6;
+  background: var(--bg-alt);
+}
+.profile-photo{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+/* fallback shown only if the image file is missing */
+.profile-fallback{
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  background:
+    radial-gradient(120% 140% at 20% 0%, #EAF0FE 0%, #DCE7FB 55%, #B7CDF7 100%);
+}
+.profile-frame.no-photo .profile-fallback{ display:flex; }
+.profile-frame.no-photo .profile-photo{ display:none; }
+.profile-initials{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 64px;
+  letter-spacing: 0.02em;
+  color: var(--accent-ink);
+}
+.profile-hint{
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.profile-caption{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+}
+.profile-name{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15px;
+}
+.profile-name small{
+  display:block;
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+.profile-status{
+  display:flex;
+  align-items:center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--good);
+  white-space: nowrap;
+}
+.profile-status::before{
+  content:"";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--good);
+}
+
 .skill-panel{
   background: var(--panel);
   border: 1px solid var(--line);
@@ -316,6 +420,9 @@ h1.hero-name{
 
 @media (max-width: 860px){
   .about-grid{ grid-template-columns: 1fr; }
+  /* on mobile, show the face first — trust before the pitch */
+  .about-side{ order: -1; }
+  .profile-card{ max-width: 380px; }
   .stats{ grid-template-columns: 1fr 1fr 1fr; }
 }
 @media (max-width: 520px){
@@ -598,13 +705,13 @@ footer{ padding: 40px 0 60px; }
     <div class="about-grid reveal">
       <div class="about-text">
         <h2>Full-stack, end to end.</h2>
-      
+
 <p>Hey, I'm Michael.</p>
 
 <p>I'm a web developer who helps businesses build websites that look great, build trust, and bring in more customers. Whether you're a <strong>Barber</strong>, <strong>Hairstylist</strong>, <strong>Football Club Owner</strong>, <strong>Local Business</strong> or a <strong>Startup</strong>, I'll create a website that's built around your goals.</p>
 <p>I've been building websites for over five years, alongside working in tech at <strong>Adobe</strong> and <strong>Samsung</strong>. That experience has taught me how to create websites that are easy to use, <strong>reliable</strong>, and designed with real business needs in mind.</p>
 <p>I know websites can feel overwhelming, so I keep things simple. I'll guide you through the whole process, from the first idea to launch, and be there if you need support afterwards.</p>
-<p>My aim is simple:<strong>build a website that helps your business grow</strong> . If that sounds like what you're looking for, I'd love to work with you.</p>       
+<p>My aim is simple:<strong>build a website that helps your business grow</strong> . If that sounds like what you're looking for, I'd love to work with you.</p>
         <div class="stats">
           <div class="stat">
             <div class="stat-num">5+</div>
@@ -620,17 +727,43 @@ footer{ padding: 40px 0 60px; }
           </div>
         </div>
       </div>
-      <div class="skill-panel">
-        <p class="skill-panel-title">// tech I build with</p>
-        <div class="pills">
-          <span class="pill">HTML/CSS/JS</span>
-          <span class="pill">React</span>
-          <span class="pill">Node.js</span>
-          <span class="pill">Express</span>
-          <span class="pill">SQL/Postgres</span>
-          <span class="pill">REST APIs</span>
-          <span class="pill">Git</span>
-          <span class="pill">Responsive Design</span>
+
+      <div class="about-side">
+        <!-- ===== PROFILE PHOTO ===== -->
+        <!-- Drop your photo at Img/profile.jpg (a square-ish portrait works best).
+             Until then, the card shows your initials instead of a broken image. -->
+        <div class="profile-card">
+          <div class="profile-head">
+            <span class="dot-row"><span></span><span></span><span></span></span>
+            <span class="profile-file">~/about/michael.jpg</span>
+          </div>
+          <div class="profile-frame" id="profileFrame">
+            <img class="profile-photo" src="Img/profile.jpg"
+                 alt="Michael Shobande, full-stack web developer"
+                 onerror="document.getElementById('profileFrame').classList.add('no-photo')">
+            <div class="profile-fallback" aria-hidden="true">
+              <span class="profile-initials">MS</span>
+              <span class="profile-hint">// add Img/profile.jpg</span>
+            </div>
+          </div>
+          <div class="profile-caption">
+            <p class="profile-name">Michael Shobande<small>Full-stack web developer</small></p>
+            <span class="profile-status">available</span>
+          </div>
+        </div>
+
+        <div class="skill-panel">
+          <p class="skill-panel-title">// tech I build with</p>
+          <div class="pills">
+            <span class="pill">HTML/CSS/JS</span>
+            <span class="pill">React</span>
+            <span class="pill">Node.js</span>
+            <span class="pill">Express</span>
+            <span class="pill">SQL/Postgres</span>
+            <span class="pill">REST APIs</span>
+            <span class="pill">Git</span>
+            <span class="pill">Responsive Design</span>
+          </div>
         </div>
       </div>
     </div>
