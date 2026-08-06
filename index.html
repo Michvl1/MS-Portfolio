@@ -322,28 +322,32 @@ h1.hero-name{
 }
 .profile-frame{
   position: relative;
-  aspect-ratio: 4 / 4.6;
+  aspect-ratio: 1 / 1;  /* Change to 1:1 aspect ratio for a circle */
+  max-width: 200px;  /* Adjust size as needed */
+  border-radius: 50%;  /* Make it circular */
   background: var(--bg-alt);
+  overflow: hidden;  /* Crop photo to circle */
 }
 .profile-photo{
   position: absolute;
   inset: 0;
-  width: 100%;
+  width: 100%; 
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;  /* Center the image */
 }
 /* fallback shown only if the image file is missing */
 .profile-fallback{
   position: absolute;
   inset: 0;
-  display: none;
+  display: none; 
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: column; 
   gap: 10px;
-  background:
-    radial-gradient(120% 140% at 20% 0%, #EAF0FE 0%, #DCE7FB 55%, #B7CDF7 100%);
+  border-radius: 50%;  /* Match circular shape */
+  background: 
+    radial-gradient(120% 120% at 50% 0%, #EAF0FE 0%, #DCE7FB 55%, #B7CDF7 100%);
 }
 .profile-frame.no-photo .profile-fallback{ display:flex; }
 .profile-frame.no-photo .profile-photo{ display:none; }
@@ -467,10 +471,10 @@ h1.hero-name{
 .project-card:nth-child(even) > *{ direction: ltr; }
 
 .project-visual{
-  position: relative;
-  min-height: 280px;
+  position: relative; 
+  /* min-height: 280px; */
   padding: 28px;
-  display:flex;
+  display:flex; 
   align-items:center;
   justify-content:center;
 }
